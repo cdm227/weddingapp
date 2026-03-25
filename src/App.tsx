@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Calendar,
@@ -10,129 +10,31 @@ import {
   Check,
   Camera,
 } from "@phosphor-icons/react";
-import { Toaster, toast } from "sonner";
-
-/** Edit these */
-const COUPLE = "Audrey & Patrick";
-const DATE_LONG = "October 5, 2024";
-const CITY = "San Diego, CA";
-const COUNTDOWN_TEXT = "123 Days To Go";
-const DRESS_CODE = "Semi-formal garden attire";
-const CONTACT_EMAIL = "hello@yourwedding.com";
-
-/** Replace with your Formspree endpoint when ready */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
-
-type RSVP = {
-  name: string;
-  email: string;
-  attending: "yes" | "no";
-  guests: string;
-  dietary: string;
-  message: string;
-};
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 18 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 },
-  viewport: { once: true, margin: "-120px" },
-};
-
-const stagger = {
-  whileInView: { transition: { staggerChildren: 0.08 } },
-  viewport: { once: true, margin: "-120px" },
-};
-
-function Pill({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-2xl border border-slate-200 bg-white/80 px-4 py-3 shadow-sm backdrop-blur">
-      <div className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.18em] text-slate-500">
-        {icon}
-        <span>{label.toUpperCase()}</span>
-      </div>
-      <div className="mt-1 text-sm font-semibold text-slate-900">{value}</div>
-    </div>
-  );
-}
-
-function Card({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={[
-        "rounded-3xl border border-slate-200 bg-white/80 shadow-sm backdrop-blur",
-        className,
-      ].join(" ")}
-    >
-      {children}
-    </div>
-  );
-}
-
-function CardHeader({
-  icon,
-  title,
-  subtitle,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  subtitle?: string;
-}) {
-  return (
-    <div className="p-6 pb-4">
-      <div className="flex items-center gap-3">
-        <div className="rounded-2xl border border-slate-200 bg-white p-2 text-slate-900 shadow-sm">
-          {icon}
-        </div>
-        <div>
-          <div className="text-xl font-semibold text-slate-900">{title}</div>
-          {subtitle ? (
-            <div className="mt-0.5 text-sm text-slate-600">{subtitle}</div>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CardBody({ children }: { children: React.ReactNode }) {
-  return <div className="px-6 pb-6">{children}</div>;
-}
-
-function Field({
-  label,
-  children,
-  hint,
-}: {
-  label: string;
-  children: React.ReactNode;
-  hint?: string;
-}) {
-  return (
-    <label className="space-y-2">
-      <div className="text-sm font-semibold text-slate-800">{label}</div>
-      {children}
-      {hint ? <div className="text-xs text-slate-500">{hint}</div> : null}
-    </label>
-  );
-}
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { toast } from "sonner";
 
 export default function App() {
-  const [formData, setFormData] = useState<RSVP>({
+  const [formData, setFormData] = useState({
     name: "",
     email: "",
     attending: "yes",
@@ -141,76 +43,88 @@ export default function App() {
     message: "",
   });
 
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const canSubmit = useMemo(() => {
-    if (!formData.name.trim()) return false;
-    if (!formData.email.trim()) return false;
-    return true;
-  }, [formData.name, formData.email]);
-
-  async function handleSubmit(e: React.FormEvent) {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!canSubmit) {
-      toast.error("Please fill in your name and email.");
+    if (!formData.name || !formData.email) {
+      toast.error("Please fill in all required fields");
       return;
     }
 
     setIsSubmitting(true);
+
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name,
+          email: formData.email,
+          attending: formData.attending,
+          guests: formData.guests,
+          dietary: formData.dietary,
+          message: formData.message,
           submittedAt: new Date().toISOString(),
         }),
       });
 
-      if (!res.ok) throw new Error(`RSVP failed: ${res.status}`);
+      if (response.ok) {
+        toast.success(
+          formData.attending === "yes"
+            ? "We can't wait to celebrate with you!"
+            : "Thank you for letting us know"
+        );
 
-      toast.success(
-        formData.attending === "yes"
-          ? "We can’t wait to celebrate with you!"
-          : "Thank you for letting us know."
-      );
-
-      setFormData({
-        name: "",
-        email: "",
-        attending: "yes",
-        guests: "1",
-        dietary: "",
-        message: "",
-      });
-    } catch (err) {
-      toast.error("Unable to submit RSVP. Please try again later.");
-      console.error(err);
+        setFormData({
+          name: "",
+          email: "",
+          attending: "yes",
+          guests: "1",
+          dietary: "",
+          message: "",
+        });
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } catch {
+      toast.error("Unable to submit RSVP. Please check your connection.");
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
-  const schedule = [
-    { time: "3:00 PM", event: "Ceremony Begins", icon: Heart },
-    { time: "4:00 PM", event: "Cocktail Hour", icon: Users },
-    { time: "5:30 PM", event: "Reception Starts", icon: Calendar },
-    { time: "6:30 PM", event: "Dinner Service", icon: Users },
-    { time: "8:00 PM", event: "Dancing & Celebration", icon: Heart },
-    { time: "11:00 PM", event: "Send-off", icon: Heart },
-  ] as const;
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.6 },
+    viewport: { once: true, margin: "-120px" },
+  };
+
+  const staggerContainer = {
+    whileInView: { transition: { staggerChildren: 0.08 } },
+    viewport: { once: true, margin: "-120px" },
+  };
+
+  const gallery = [
+    { src: "/photos/01.svg", alt: "Photo 01" },
+    { src: "/photos/02.svg", alt: "Photo 02" },
+    { src: "/photos/03.svg", alt: "Photo 03" },
+    { src: "/photos/04.svg", alt: "Photo 04" },
+  ];
 
   return (
-    <div className="wedding-shell">
-      <Toaster richColors position="top-center" />
-
-      {/* HERO (green + gold vibe) */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/90 via-emerald-950/75 to-transparent" />
+    <div className="min-h-screen bg-background text-foreground">
+      {/* HERO */}
+      <motion.section
+        className="relative min-h-[92vh] sm:min-h-screen flex flex-col items-center justify-center container-pad text-center overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/65 to-secondary/40" />
         <div
           className="absolute inset-0 opacity-[0.08]"
           style={{
@@ -219,377 +133,469 @@ export default function App() {
             backgroundSize: "44px 44px",
           }}
         />
-        <div className="relative mx-auto max-w-6xl px-5 py-20 text-center text-white sm:py-24">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.08 }}
-          >
-            <div className="mx-auto mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold tracking-[0.25em]">
-              <span
-                className="inline-block h-2 w-2 rounded-full"
-                style={{ backgroundColor: "rgb(221 204 150)" }}
-              />
-              WEDDING WEBSITE
-            </div>
 
-            <Heart
-              className="mx-auto mb-6"
-              size={44}
-              weight="fill"
-              style={{ color: "rgb(221 204 150)" }}
-            />
+        <motion.div
+          className="relative z-10 max-w-3xl"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        ><Heart
+            className="mx-auto mb-6"
+            size={44}
+            weight="fill"
+            style={{ color: "hsl(var(--accent))" }}
+          />
 
-            <h1 className="mx-auto max-w-4xl text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl">
-              {COUPLE}
-            </h1>
+          <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-white mb-4 leading-none">
+            Audrey &amp; Patrick
+          </h1>
 
-            <p className="mt-6 text-lg text-white/80 sm:text-xl">
-              {DATE_LONG} • {CITY}
-            </p>
-            <p className="mt-2 text-sm font-semibold tracking-[0.22em] text-white/70">
-              {COUNTDOWN_TEXT}
-            </p>
+          <p className="font-serif text-base sm:text-lg text-white/80">
+            October 5, 2024 • San Diego, CA
+          </p>
+          <p className="mt-2 text-xs sm:text-sm font-semibold tracking-[0.22em] text-white/70">
+            123 Days To Go
+          </p>
 
-            <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <a
-                href="#rsvp"
-                className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-emerald-950 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-              >
+          <div className="mt-10 flex items-center justify-center gap-3">
+            <a href="#rsvp">
+              <button className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-primary shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
                 RSVP
-              </a>
-              <a
-                href="#details"
-                className="inline-flex items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15"
-              >
+              </button>
+            </a>
+            <a href="#details">
+              <button className="inline-flex items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15">
                 View Details
-              </a>
-            </div>
+              </button>
+            </a>
+          </div>
+        </motion.div>
+      </motion.section>
+
+      {/* DETAILS */}
+      <section id="details" className="section container-pad max-w-4xl mx-auto">
+        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
+          <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
+            <h2 className="h2">Event Details</h2>
+            <p className="mt-3 lead">Join us for a day of love and celebration</p>
           </motion.div>
-        </div>
-      </section>
 
-      <div className="wedding-max">
-        {/* DETAILS */}
-        <section id="details" className="py-4">
-          <motion.div variants={stagger} initial="initial" whileInView="whileInView">
-            <motion.div {...fadeInUp} className="mb-10 text-center">
-              <h2 className="text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-                Event Details
-              </h2>
-              <p className="mt-3 text-base text-slate-600">
-                Join us for a day of love and celebration.
-              </p>
-            </motion.div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              <motion.div {...fadeInUp}>
-                <Pill
-                  icon={<Calendar size={16} weight="duotone" className="text-emerald-800" />}
-                  label="Date"
-                  value={DATE_LONG}
-                />
-              </motion.div>
-              <motion.div {...fadeInUp}>
-                <Pill
-                  icon={<MapPin size={16} weight="duotone" className="text-emerald-800" />}
-                  label="City"
-                  value={CITY}
-                />
-              </motion.div>
-              <motion.div {...fadeInUp}>
-                <Pill
-                  icon={<Clock size={16} weight="duotone" className="text-emerald-800" />}
-                  label="Start"
-                  value="3:00 PM"
-                />
-              </motion.div>
-            </div>
-
-            <div className="mt-6 grid gap-6 md:grid-cols-2">
-              <motion.div {...fadeInUp}>
-                <Card className="h-full">
-                  <CardHeader
-                    icon={<Heart size={24} weight="duotone" className="text-emerald-900" />}
-                    title="Ceremony"
-                    subtitle='Where we say “I do”'
-                  />
-                  <CardBody>
-                    <div className="space-y-3 text-sm text-slate-700">
-                      <div className="flex items-start gap-3">
-                        <Clock size={18} className="mt-0.5 text-emerald-800" weight="duotone" />
-                        <div>
-                          <div className="font-semibold text-slate-900">3:00 PM</div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <MapPin size={18} className="mt-0.5 text-emerald-800" weight="duotone" />
-                        <div>
-                          <div className="font-semibold text-slate-900">Garden Chapel</div>
-                          <div className="text-slate-600">123 Rose Garden Lane, Bloom Valley</div>
-                        </div>
-                      </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            <motion.div {...fadeInUp}>
+              <Card className="h-full border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <Heart className="text-primary" size={28} weight="duotone" />
+                    <CardTitle className="font-serif text-2xl">Ceremony</CardTitle>
+                  </div>
+                  <CardDescription className="text-base">Where we say "I do"</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <Clock className="text-primary mt-1" size={20} weight="duotone" />
+                    <div>
+                      <p className="font-semibold">3:00 PM</p>
                     </div>
-                  </CardBody>
-                </Card>
-              </motion.div>
-
-              <motion.div {...fadeInUp}>
-                <Card className="h-full">
-                  <CardHeader
-                    icon={<Users size={24} weight="duotone" className="text-emerald-900" />}
-                    title="Reception"
-                    subtitle="Dinner, dancing & celebration"
-                  />
-                  <CardBody>
-                    <div className="space-y-3 text-sm text-slate-700">
-                      <div className="flex items-start gap-3">
-                        <Clock size={18} className="mt-0.5 text-emerald-800" weight="duotone" />
-                        <div>
-                          <div className="font-semibold text-slate-900">5:30 PM</div>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <MapPin size={18} className="mt-0.5 text-emerald-800" weight="duotone" />
-                        <div>
-                          <div className="font-semibold text-slate-900">The Grand Ballroom</div>
-                          <div className="text-slate-600">
-                            456 Celebration Avenue, Bloom Valley
-                          </div>
-                        </div>
-                      </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <MapPin className="text-primary mt-1" size={20} weight="duotone" />
+                    <div>
+                      <p className="font-semibold">Garden Chapel</p>
+                      <p className="text-sm text-muted-foreground">
+                        123 Rose Garden Lane, Bloom Valley
+                      </p>
                     </div>
-                  </CardBody>
-                </Card>
-              </motion.div>
-            </div>
-
-            <motion.div {...fadeInUp} className="mt-6">
-              <Card className="border-emerald-900/10 bg-emerald-50/60">
-                <div className="p-6 text-center text-sm text-slate-700">
-                  <span className="font-semibold text-slate-900">Dress Code:</span>{" "}
-                  {DRESS_CODE}
-                </div>
+                  </div>
+                </CardContent>
               </Card>
             </motion.div>
-          </motion.div>
-        </section>
 
-        {/* SCHEDULE */}
-        <section className="py-10">
-          <motion.div variants={stagger} initial="initial" whileInView="whileInView">
-            <motion.div {...fadeInUp} className="mb-10 text-center">
-              <h2 className="text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-                Schedule
-              </h2>
-              <p className="mt-3 text-base text-slate-600">Timeline for the day.</p>
+            <motion.div {...fadeInUp}>
+              <Card className="h-full border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <CardHeader>
+                  <div className="flex items-center gap-3 mb-2">
+                    <Users className="text-primary" size={28} weight="duotone" />
+                    <CardTitle className="font-serif text-2xl">Reception</CardTitle>
+                  </div>
+                  <CardDescription className="text-base">
+                    Dinner, dancing &amp; celebration
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <Clock className="text-primary mt-1" size={20} weight="duotone" />
+                    <div>
+                      <p className="font-semibold">5:30 PM</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <MapPin className="text-primary mt-1" size={20} weight="duotone" />
+                    <div>
+                      <p className="font-semibold">The Grand Ballroom</p>
+                      <p className="text-sm text-muted-foreground">
+                        456 Celebration Avenue, Bloom Valley
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+
+          <motion.div {...fadeInUp} className="mt-8">
+            <Card className="border-border/50 bg-secondary/60">
+              <CardContent className="pt-6">
+                <p className="text-center text-muted-foreground">
+                  <span className="font-semibold text-foreground">Dress Code:</span>{" "}
+                  Semi-formal garden attire
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      <Separator className="max-w-4xl mx-auto" />
+
+      {/* SCHEDULE */}
+      <section className="section container-pad max-w-2xl mx-auto">
+        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
+          <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
+            <h2 className="h2">Schedule</h2>
+            <p className="mt-3 lead">Timeline for the day</p>
+          </motion.div>
+
+          <div className="space-y-6">
+            {[
+              { time: "3:00 PM", event: "Ceremony Begins", icon: Heart },
+              { time: "4:00 PM", event: "Cocktail Hour", icon: Users },
+              { time: "5:30 PM", event: "Reception Starts", icon: Calendar },
+              { time: "6:30 PM", event: "Dinner Service", icon: Users },
+              { time: "8:00 PM", event: "Dancing & Celebration", icon: Heart },
+              { time: "11:00 PM", event: "Send-off", icon: Heart },
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                {...fadeInUp}
+                className="flex items-start gap-4 group"
+              >
+                <div className="flex flex-col items-center">
+                  <div className="rounded-full bg-accent/10 p-3 group-hover:bg-accent/15 transition-colors">
+                    <item.icon className="text-primary" size={24} weight="duotone" />
+                  </div>
+                  {index < 5 && <div className="w-0.5 h-6 bg-border mt-2" />}
+                </div>
+                <div className="flex-1 pb-2">
+                  <p className="font-serif font-semibold text-lg text-foreground">
+                    {item.event}
+                  </p>
+                  <p className="text-muted-foreground">{item.time}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      <Separator className="max-w-4xl mx-auto" />
+
+      {/* LOCATION (match screenshot style) */}
+      <section className="section container-pad max-w-4xl mx-auto">
+        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
+          <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
+            <MapPin className="mx-auto mb-4 text-primary" size={44} weight="duotone" />
+            <h2 className="h2">Location</h2>
+            <p className="mt-3 lead">Find your way to our celebration</p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Ceremony */}
+            <motion.div {...fadeInUp}>
+              <Card className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3 mb-1">
+                    <Heart className="text-primary" size={22} weight="duotone" />
+                    <CardTitle className="font-serif text-xl">Ceremony</CardTitle>
+                  </div>
+                  <CardDescription className="text-base">Garden Chapel</CardDescription>
+                </CardHeader>
+
+                <div className="aspect-video w-full bg-secondary/60 relative overflow-hidden border-y border-border/60">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093713!2d144.9537353153167!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnglish%20Garden!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Ceremony Location Map"
+                  />
+                </div>
+
+                <CardContent className="pt-5 space-y-3">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="text-primary mt-0.5 flex-shrink-0" size={20} weight="duotone" />
+                    <div>
+                      <p className="font-semibold text-sm">123 Rose Garden Lane</p>
+                      <p className="text-sm text-muted-foreground">Bloom Valley</p>
+                    </div>
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    onClick={() =>
+                      window.open(
+                        "https://maps.google.com/?q=Garden+Chapel+Bloom+Valley",
+                        "_blank"
+                      )
+                    }
+                  >
+                    Open in Google Maps
+                  </Button>
+                </CardContent>
+              </Card>
             </motion.div>
 
-            <div className="mx-auto max-w-2xl space-y-6">
-              {schedule.map((item, index) => (
-                <motion.div
-                  key={index}
-                  {...fadeInUp}
-                  className="group flex items-start gap-4"
-                >
-                  <div className="flex flex-col items-center">
-                    <div className="rounded-full border border-slate-200 bg-white p-3 shadow-sm transition group-hover:shadow-md">
-                      <item.icon size={22} className="text-emerald-900" weight="duotone" />
-                    </div>
-                    {index < schedule.length - 1 ? (
-                      <div className="mt-2 h-6 w-0.5 bg-slate-200" />
-                    ) : null}
+            {/* Reception */}
+            <motion.div {...fadeInUp}>
+              <Card className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3 mb-1">
+                    <Users className="text-primary" size={22} weight="duotone" />
+                    <CardTitle className="font-serif text-xl">Reception</CardTitle>
                   </div>
-                  <div className="flex-1 pb-2">
-                    <div className="text-lg font-semibold text-slate-900">
-                      {item.event}
+                  <CardDescription className="text-base">The Grand Ballroom</CardDescription>
+                </CardHeader>
+
+                <div className="aspect-video w-full bg-secondary/60 relative overflow-hidden border-y border-border/60">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093713!2d144.9637353153167!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5c2b349649%3A0xb6899234e561db11!2sBallroom!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Reception Location Map"
+                  />
+                </div>
+
+                <CardContent className="pt-5 space-y-3">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="text-primary mt-0.5 flex-shrink-0" size={20} weight="duotone" />
+                    <div>
+                      <p className="font-semibold text-sm">456 Celebration Avenue</p>
+                      <p className="text-sm text-muted-foreground">Bloom Valley</p>
                     </div>
-                    <div className="text-sm text-slate-600">{item.time}</div>
                   </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
 
-        {/* RSVP */}
-        <section id="rsvp" className="py-10">
-          <motion.div {...fadeInUp} className="mx-auto max-w-2xl">
-            <div className="mb-10 text-center">
-              <h2 className="text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-                RSVP
-              </h2>
-              <p className="mt-3 text-base text-slate-600">
-                Please let us know if you can join us.
-              </p>
-            </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    onClick={() =>
+                      window.open(
+                        "https://maps.google.com/?q=Grand+Ballroom+Bloom+Valley",
+                        "_blank"
+                      )
+                    }
+                  >
+                    Open in Google Maps
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </motion.div>
+      </section>
 
-            <Card className="shadow-md">
-              <form onSubmit={handleSubmit} className="p-6 space-y-5">
+      <Separator className="max-w-4xl mx-auto" />
+
+      {/* RSVP */}
+      <section className="section container-pad max-w-2xl mx-auto" id="rsvp">
+        <motion.div {...fadeInUp}>
+          <div className="text-center mb-10 sm:mb-12">
+            <h2 className="h2">RSVP</h2>
+            <p className="mt-3 lead">Please let us know if you can join us</p>
+          </div>
+
+          <Card className="border-border/50 shadow-lg">
+            <CardContent className="pt-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field label="Full Name *">
-                    <input
-                      className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-200"
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Full Name *</Label>
+                    <Input
+                      id="name"
                       value={formData.name}
-                      onChange={(e) =>
-                        setFormData((f) => ({ ...f, name: e.target.value }))
-                      }
-                      placeholder="Your name"
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="Your full name"
                       required
                     />
-                  </Field>
+                  </div>
 
-                  <Field label="Email *">
-                    <input
-                      className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-200"
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email *</Label>
+                    <Input
+                      id="email"
                       type="email"
                       value={formData.email}
-                      onChange={(e) =>
-                        setFormData((f) => ({ ...f, email: e.target.value }))
-                      }
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="you@email.com"
                       required
                     />
-                  </Field>
+                  </div>
                 </div>
 
-                <Field label="Will you be attending? *">
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm">
-                      <input
-                        type="radio"
-                        name="attending"
-                        checked={formData.attending === "yes"}
-                        onChange={() =>
-                          setFormData((f) => ({ ...f, attending: "yes" }))
-                        }
-                      />
-                      <span className="font-semibold text-slate-900">
+                <div className="space-y-3">
+                  <Label>Will you be attending? *</Label>
+                  <RadioGroup
+                    value={formData.attending}
+                    onValueChange={(value) => setFormData({ ...formData, attending: value })}
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="yes" id="yes" />
+                      <Label htmlFor="yes" className="font-normal cursor-pointer">
                         Joyfully accept
-                      </span>
-                    </label>
-
-                    <label className="flex cursor-pointer items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm">
-                      <input
-                        type="radio"
-                        name="attending"
-                        checked={formData.attending === "no"}
-                        onChange={() =>
-                          setFormData((f) => ({ ...f, attending: "no" }))
-                        }
-                      />
-                      <span className="font-semibold text-slate-900">
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="no" id="no" />
+                      <Label htmlFor="no" className="font-normal cursor-pointer">
                         Regretfully decline
-                      </span>
-                    </label>
-                  </div>
-                </Field>
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
 
-                {formData.attending === "yes" ? (
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <Field label="Number of Guests">
-                      <select
-                        className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-200"
+                {formData.attending === "yes" && (
+                  <>
+                    <div className="space-y-2">
+                      <Label htmlFor="guests">Number of Guests</Label>
+                      <Select
                         value={formData.guests}
-                        onChange={(e) =>
-                          setFormData((f) => ({ ...f, guests: e.target.value }))
-                        }
+                        onValueChange={(value) => setFormData({ ...formData, guests: value })}
                       >
-                        <option value="1">1 Guest</option>
-                        <option value="2">2 Guests</option>
-                        <option value="3">3 Guests</option>
-                        <option value="4">4 Guests</option>
-                      </select>
-                    </Field>
+                        <SelectTrigger id="guests">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1">1 Guest</SelectItem>
+                          <SelectItem value="2">2 Guests</SelectItem>
+                          <SelectItem value="3">3 Guests</SelectItem>
+                          <SelectItem value="4">4 Guests</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
 
-                    <Field label="Dietary Restrictions">
-                      <input
-                        className="w-full rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-200"
+                    <div className="space-y-2">
+                      <Label htmlFor="dietary">Dietary Restrictions</Label>
+                      <Input
+                        id="dietary"
                         value={formData.dietary}
                         onChange={(e) =>
-                          setFormData((f) => ({ ...f, dietary: e.target.value }))
+                          setFormData({ ...formData, dietary: e.target.value })
                         }
-                        placeholder="Allergies or preferences?"
+                        placeholder="Any allergies or preferences?"
                       />
-                    </Field>
-                  </div>
-                ) : null}
+                    </div>
+                  </>
+                )}
 
-                <Field
-                  label="Message for the Couple"
-                  hint={`${formData.message.length}/500`}
-                >
-                  <textarea
-                    className="min-h-28 w-full resize-y rounded-2xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-emerald-200"
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message for the Couple</Label>
+                  <Textarea
+                    id="message"
                     value={formData.message}
                     onChange={(e) =>
-                      setFormData((f) => ({ ...f, message: e.target.value }))
+                      setFormData({ ...formData, message: e.target.value })
                     }
-                    placeholder="Share your well wishes..."
+                    placeholder="Dietary restrictions, song requests, notes..."
                     rows={4}
                     maxLength={500}
                   />
-                </Field>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex w-full items-center justify-center rounded-2xl bg-emerald-950 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:bg-emerald-900 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  <Check size={18} className="mr-2" weight="bold" />
-                  {isSubmitting ? "Submitting..." : "Submit RSVP"}
-                </button>
-
-                <div className="text-xs text-slate-500">
-                  Replace <code>YOUR_FORM_ID</code> in the Formspree URL when ready.
+                  <p className="text-xs text-muted-foreground text-right">
+                    {formData.message.length}/500
+                  </p>
                 </div>
+
+                <Button type="submit" disabled={isSubmitting} className="w-full">
+                  <Check size={20} weight="bold" className="mr-2" />
+                  {isSubmitting ? "Submitting..." : "Send RSVP"}
+                </Button>
+
+                <p className="text-xs text-muted-foreground">
+                  Tip: replace <code>YOUR_FORM_ID</code> in the code once you create your
+                  Formspree form.
+                </p>
               </form>
-            </Card>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </section>
+
+      <Separator className="max-w-4xl mx-auto" />
+
+      {/* GALLERY (real images from /public/photos) */}
+      <section className="section container-pad max-w-4xl mx-auto">
+        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
+          <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
+            <Camera className="mx-auto mb-4 text-primary" size={44} weight="duotone" />
+            <h2 className="h2">Our Story</h2>
+            <p className="mt-3 lead">A glimpse into our journey together</p>
           </motion.div>
-        </section>
 
-        {/* GALLERY (simple placeholders like your sample) */}
-        <section className="py-10">
-          <motion.div variants={stagger} initial="initial" whileInView="whileInView">
-            <motion.div {...fadeInUp} className="mb-10 text-center">
-              <Camera className="mx-auto mb-3 text-emerald-900" size={38} weight="duotone" />
-              <h2 className="text-4xl font-semibold tracking-tight text-slate-900 md:text-5xl">
-                Our Story
-              </h2>
-              <p className="mt-3 text-base text-slate-600">
-                A glimpse into our journey together.
-              </p>
-            </motion.div>
+          <motion.div {...fadeInUp}>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {gallery.map((img, index) => (
+                <Dialog
+                  key={img.src}
+                  open={selectedImage === index}
+                  onOpenChange={(open) => setSelectedImage(open ? index : null)}
+                >
+                  <DialogTrigger asChild>
+                    <motion.button
+                      type="button"
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="group relative aspect-square overflow-hidden rounded-2xl border border-border bg-secondary/50 shadow-sm hover:shadow-md transition"
+                      aria-label={`Open ${img.alt}`}
+                    >
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </motion.button>
+                  </DialogTrigger>
 
-            <motion.div {...fadeInUp} className="grid grid-cols-2 gap-4 md:grid-cols-4">
-              {Array.from({ length: 4 }).map((_, idx) => (
-                <div
-                  key={idx}
-                  className="aspect-square rounded-2xl border border-slate-200 bg-gradient-to-br from-emerald-50 to-white shadow-sm"
-                />
+                  <DialogContent className="max-w-4xl p-0 overflow-hidden">
+                    <img src={img.src} alt={img.alt} className="w-full h-auto" />
+                  </DialogContent>
+                </Dialog>
               ))}
-            </motion.div>
+            </div>
+
+            <p className="mt-4 text-center text-xs text-muted-foreground">
+              Add/replace images in <code>public/photos/</code> later (01–04).
+            </p>
           </motion.div>
-        </section>
-      </div>
+        </motion.div>
+      </section>
 
       {/* FOOTER */}
-      <footer className="mt-10 border-t border-slate-200 bg-white/70">
-        <div className="mx-auto max-w-6xl px-5 py-10 text-center">
-          <Heart
-            className="mx-auto mb-3"
-            size={28}
-            weight="fill"
-            style={{ color: "rgb(185 157 90)" }}
-          />
-          <div className="text-lg font-semibold text-slate-900">{COUPLE}</div>
-          <div className="mt-1 text-sm text-slate-600">
-            {DATE_LONG} • {CITY}
-          </div>
-          <div className="mt-4 inline-flex items-center gap-2 text-sm text-slate-600">
-            <Envelope size={16} />
-            <span>Questions? {CONTACT_EMAIL}</span>
-          </div>
+      <footer className="py-12 container-pad text-center bg-secondary/30">
+        <Heart className="mx-auto mb-4 text-primary" size={32} weight="fill" />
+        <p className="font-serif text-lg text-foreground mb-2">Audrey &amp; Patrick</p>
+        <p className="text-sm text-muted-foreground mb-4">October 5, 2024</p>
+        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+          <Envelope size={16} />
+          <span>Questions? Contact us at hello@audreypatrick.wedding</span>
         </div>
       </footer>
     </div>
