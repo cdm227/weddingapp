@@ -2,51 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Soft wedding theme (marble + green + gold) */
-:root {
-  --bg: 255 255 255;
-  --ink: 15 23 42;
+/* Sea-inspired wedding theme (aqua/teal + sand) */
+@layer base {
+  :root {
+    --background: 38 56% 97%;
+    --foreground: 222 47% 11%;
 
-  --green-900: 15 43 33;
-  --green-800: 21 63 47;
-  --green-100: 232 243 238;
+    --muted: 38 24% 93%;
+    --muted-foreground: 215 16% 47%;
 
-  --gold: 185 157 90;
-  --gold-soft: 221 204 150;
+    --border: 35 18% 86%;
+    --input: 35 18% 86%;
 
-  color-scheme: light;
+    /* seawater teal */
+    --primary: 187 44% 26%;
+    --primary-foreground: 38 56% 97%;
+
+    /* pale seafoam */
+    --secondary: 178 35% 92%;
+    --secondary-foreground: 222 47% 11%;
+
+    /* keep accent subtle (can be used for buttons if you want) */
+    --accent: 188 35% 34%;
+    --accent-foreground: 38 56% 97%;
+
+    --card: 38 56% 97%;
+    --card-foreground: 222 47% 11%;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+    background:
+      radial-gradient(1100px 750px at 15% 0%, hsl(var(--primary) / 0.14), transparent 60%),
+      radial-gradient(900px 600px at 90% 15%, hsl(var(--secondary) / 0.85), transparent 55%),
+      linear-gradient(180deg, hsl(var(--secondary) / 0.55), transparent 45%),
+      hsl(var(--background));
+  }
 }
 
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  color: rgb(var(--ink));
-  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-
-  /* Marble-ish background */
-  background:
-    radial-gradient(1200px 800px at 10% 0%, rgba(221, 204, 150, 0.18), transparent 60%),
-    radial-gradient(1000px 700px at 90% 10%, rgba(232, 243, 238, 0.9), transparent 55%),
-    linear-gradient(180deg, rgba(15, 43, 33, 0.06), transparent 28%),
-    #ffffff;
-}
-
-/* Nice selection */
-::selection {
-  background: rgba(185, 157, 90, 0.25);
-}
-
-/* Small helper classes */
-.wedding-shell {
-  min-height: 100vh;
-}
-
-.wedding-max {
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 2.5rem 1.25rem;
+@layer utilities {
+  .section { @apply py-12 sm:py-16; }
+  .container-pad { @apply px-5 sm:px-6; }
+  .h2 { @apply font-display font-semibold tracking-tight text-3xl sm:text-4xl md:text-5xl; }
+  .lead { @apply text-base sm:text-lg text-muted-foreground; }
 }

@@ -143,7 +143,7 @@ export default function App() {
             className="mx-auto mb-6"
             size={44}
             weight="fill"
-            style={{ color: "hsl(var(--accent))" }}
+            style={{ color: "hsl(var(--primary))" }}
           />
 
           <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-white mb-4 leading-none">
