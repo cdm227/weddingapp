@@ -2,8 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Basic baseline */
+/* Soft wedding theme (marble + green + gold) */
 :root {
+  --bg: 255 255 255;
+  --ink: 15 23 42;
+
+  --green-900: 15 43 33;
+  --green-800: 21 63 47;
+  --green-100: 232 243 238;
+
+  --gold: 185 157 90;
+  --gold-soft: 221 204 150;
+
   color-scheme: light;
 }
 
@@ -14,6 +24,29 @@ body {
 
 body {
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
-    Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  color: rgb(var(--ink));
+  font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+
+  /* Marble-ish background */
+  background:
+    radial-gradient(1200px 800px at 10% 0%, rgba(221, 204, 150, 0.18), transparent 60%),
+    radial-gradient(1000px 700px at 90% 10%, rgba(232, 243, 238, 0.9), transparent 55%),
+    linear-gradient(180deg, rgba(15, 43, 33, 0.06), transparent 28%),
+    #ffffff;
+}
+
+/* Nice selection */
+::selection {
+  background: rgba(185, 157, 90, 0.25);
+}
+
+/* Small helper classes */
+.wedding-shell {
+  min-height: 100vh;
+}
+
+.wedding-max {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem;
 }
