@@ -139,7 +139,8 @@ export default function App() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-        ><Heart
+        >
+          <Heart
             className="mx-auto mb-6"
             size={44}
             weight="fill"
@@ -147,24 +148,24 @@ export default function App() {
           />
 
           <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-white mb-4 leading-none">
-            Audrey &amp; Patrick
+            Maria &amp; Edir
           </h1>
 
           <p className="font-serif text-base sm:text-lg text-white/80">
-            October 5, 2024 • San Diego, CA
+            September 25, 2026 • Noto, Sicily
           </p>
           <p className="mt-2 text-xs sm:text-sm font-semibold tracking-[0.22em] text-white/70">
-            123 Days To Go
+            Coming Soon
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-3">
             <a href="#rsvp">
-              <button className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-primary shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+              <button className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-primary shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                 RSVP
               </button>
             </a>
             <a href="#details">
-              <button className="inline-flex items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/15">
+              <button className="inline-flex items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20">
                 View Details
               </button>
             </a>
@@ -194,15 +195,15 @@ export default function App() {
                   <div className="flex items-start gap-3">
                     <Clock className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">3:00 PM</p>
+                      <p className="font-semibold">TBA</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">Garden Chapel</p>
+                      <p className="font-semibold">Agua Resort</p>
                       <p className="text-sm text-muted-foreground">
-                        123 Rose Garden Lane, Bloom Valley
+                        Noto, Sicily
                       </p>
                     </div>
                   </div>
@@ -225,15 +226,15 @@ export default function App() {
                   <div className="flex items-start gap-3">
                     <Clock className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">5:30 PM</p>
+                      <p className="font-semibold">TBA</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">The Grand Ballroom</p>
+                      <p className="font-semibold">Agua Resort</p>
                       <p className="text-sm text-muted-foreground">
-                        456 Celebration Avenue, Bloom Valley
+                        Noto, Sicily
                       </p>
                     </div>
                   </div>
@@ -247,7 +248,7 @@ export default function App() {
               <CardContent className="pt-6">
                 <p className="text-center text-muted-foreground">
                   <span className="font-semibold text-foreground">Dress Code:</span>{" "}
-                  Semi-formal garden attire
+                  Elegant seaside attire
                 </p>
               </CardContent>
             </Card>
@@ -267,12 +268,12 @@ export default function App() {
 
           <div className="space-y-6">
             {[
-              { time: "3:00 PM", event: "Ceremony Begins", icon: Heart },
-              { time: "4:00 PM", event: "Cocktail Hour", icon: Users },
-              { time: "5:30 PM", event: "Reception Starts", icon: Calendar },
-              { time: "6:30 PM", event: "Dinner Service", icon: Users },
-              { time: "8:00 PM", event: "Dancing & Celebration", icon: Heart },
-              { time: "11:00 PM", event: "Send-off", icon: Heart },
+              { time: "TBA", event: "Ceremony Begins", icon: Heart },
+              { time: "TBA", event: "Cocktail Hour", icon: Users },
+              { time: "TBA", event: "Reception Starts", icon: Calendar },
+              { time: "TBA", event: "Dinner Service", icon: Users },
+              { time: "TBA", event: "Dancing & Celebration", icon: Heart },
+              { time: "TBA", event: "Send-off", icon: Heart },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -299,7 +300,7 @@ export default function App() {
 
       <Separator className="max-w-4xl mx-auto" />
 
-      {/* LOCATION (match screenshot style) */}
+      {/* LOCATION */}
       <section className="section container-pad max-w-4xl mx-auto">
         <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
           <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
@@ -308,28 +309,28 @@ export default function App() {
             <p className="mt-3 lead">Find your way to our celebration</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Ceremony */}
+          <div className="grid md:grid-cols-1 gap-8">
+            {/* Agua Resort */}
             <motion.div {...fadeInUp}>
               <Card className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3 mb-1">
                     <Heart className="text-primary" size={22} weight="duotone" />
-                    <CardTitle className="font-serif text-xl">Ceremony</CardTitle>
+                    <CardTitle className="font-serif text-xl">Agua Beach Resort</CardTitle>
                   </div>
-                  <CardDescription className="text-base">Garden Chapel</CardDescription>
+                  <CardDescription className="text-base">Our celebration venue</CardDescription>
                 </CardHeader>
 
                 <div className="aspect-video w-full bg-secondary/60 relative overflow-hidden border-y border-border/60">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093713!2d144.9537353153167!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnglish%20Garden!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.5231234567!2d15.03!3d36.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1313b8a6e8e8e8e9%3A0x1313b8a6e8e8e8e9!2sAgua%20Resort%20-%20Noto%20Beach!5e0!3m2!1sen!2sit!4v1234567890"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Ceremony Location Map"
+                    title="Agua Resort Location Map"
                   />
                 </div>
 
@@ -337,8 +338,8 @@ export default function App() {
                   <div className="flex items-start gap-3">
                     <MapPin className="text-primary mt-0.5 flex-shrink-0" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold text-sm">123 Rose Garden Lane</p>
-                      <p className="text-sm text-muted-foreground">Bloom Valley</p>
+                      <p className="font-semibold text-sm">Contrada Reitani, 96017</p>
+                      <p className="text-sm text-muted-foreground">Noto SR, Italy</p>
                     </div>
                   </div>
 
@@ -348,49 +349,13 @@ export default function App() {
                     className="w-full"
                     onClick={() =>
                       window.open(
-                        "https://maps.google.com/?q=Garden+Chapel+Bloom+Valley",
+                        "https://www.google.com/maps/search/Contrada+Reitani+96017+Noto+SR+Italy",
                         "_blank"
                       )
                     }
                   >
                     Open in Google Maps
                   </Button>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Reception */}
-            <motion.div {...fadeInUp}>
-              <Card className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <CardHeader className="pb-3">
-                  <div className="flex items-center gap-3 mb-1">
-                    <Users className="text-primary" size={22} weight="duotone" />
-                    <CardTitle className="font-serif text-xl">Reception</CardTitle>
-                  </div>
-                  <CardDescription className="text-base">The Grand Ballroom</CardDescription>
-                </CardHeader>
-
-                <div className="aspect-video w-full bg-secondary/60 relative overflow-hidden border-y border-border/60">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8354345093713!2d144.9637353153167!3d-37.81720997975171!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5c2b349649%3A0xb6899234e561db11!2sBallroom!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                    title="Reception Location Map"
-                  />
-                </div>
-
-                <CardContent className="pt-5 space-y-3">
-                  <div className="flex items-start gap-3">
-                    <MapPin className="text-primary mt-0.5 flex-shrink-0" size={20} weight="duotone" />
-                    <div>
-                      <p className="font-semibold text-sm">456 Celebration Avenue</p>
-                      <p className="text-sm text-muted-foreground">Bloom Valley</p>
-                    </div>
-                  </div>
 
                   <Button
                     variant="outline"
@@ -398,12 +363,12 @@ export default function App() {
                     className="w-full"
                     onClick={() =>
                       window.open(
-                        "https://maps.google.com/?q=Grand+Ballroom+Bloom+Valley",
+                        "https://www.aguaresort.it/en/agua-beach/",
                         "_blank"
                       )
                     }
                   >
-                    Open in Google Maps
+                    Visit Venue Website
                   </Button>
                 </CardContent>
               </Card>
@@ -539,7 +504,7 @@ export default function App() {
 
       <Separator className="max-w-4xl mx-auto" />
 
-      {/* GALLERY (real images from /public/photos) */}
+      {/* GALLERY */}
       <section className="section container-pad max-w-4xl mx-auto">
         <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
           <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
@@ -591,11 +556,11 @@ export default function App() {
       {/* FOOTER */}
       <footer className="py-12 container-pad text-center bg-secondary/30">
         <Heart className="mx-auto mb-4 text-primary" size={32} weight="fill" />
-        <p className="font-serif text-lg text-foreground mb-2">Audrey &amp; Patrick</p>
-        <p className="text-sm text-muted-foreground mb-4">October 5, 2024</p>
+        <p className="font-serif text-lg text-foreground mb-2">Maria &amp; Edir</p>
+        <p className="text-sm text-muted-foreground mb-4">September 25, 2026</p>
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Envelope size={16} />
-          <span>Questions? Contact us at hello@audreypatrick.wedding</span>
+          <span>Questions? Contact us at mariaedirmatrimonio@gmail.com</span>
         </div>
       </footer>
     </div>
