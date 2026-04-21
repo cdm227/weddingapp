@@ -27,6 +27,7 @@ export default {
           foreground: "hsl(var(--muted-foreground))",
         },
 
+        /* optional but nice to have */
         card: "hsl(var(--card))",
         "card-foreground": "hsl(var(--card-foreground))",
       },
