@@ -32,7 +32,6 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { toast } from "sonner";
 
 export default function App() {
@@ -120,8 +119,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <LanguageSwitcher />
-
       {/* HERO */}
       <motion.section
         className="relative min-h-[92vh] sm:min-h-screen flex flex-col items-center justify-center container-pad text-center overflow-hidden"
@@ -153,7 +150,7 @@ export default function App() {
           />
 
           <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-white mb-4 leading-none">
-            Maria &amp; Edir
+            Edir &amp; Maria
           </h1>
 
           <p className="font-serif text-base sm:text-lg text-white/80">
@@ -186,74 +183,31 @@ export default function App() {
             <p className="mt-3 lead">{t('details.subtitle')}</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div {...fadeInUp}>
-              <Card className="h-full border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <Heart className="text-primary" size={28} weight="duotone" />
-                    <CardTitle className="font-serif text-2xl">{t('details.ceremony.title')}</CardTitle>
+          <motion.div {...fadeInUp}>
+            <Card className="h-full border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <CardHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  <Heart className="text-primary" size={28} weight="duotone" />
+                  <CardTitle className="font-serif text-2xl">{t('details.ceremony.title')}</CardTitle>
+                </div>
+                <CardDescription className="text-base">{t('details.ceremony.description')}</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <Clock className="text-primary mt-1" size={20} weight="duotone" />
+                  <div>
+                    <p className="font-semibold">{t('details.ceremony.time')}</p>
                   </div>
-                  <CardDescription className="text-base">{t('details.ceremony.description')}</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <Clock className="text-primary mt-1" size={20} weight="duotone" />
-                    <div>
-                      <p className="font-semibold">{t('details.ceremony.time')}</p>
-                    </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MapPin className="text-primary mt-1" size={20} weight="duotone" />
+                  <div>
+                    <p className="font-semibold">{t('details.ceremony.location')}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {t('details.ceremony.city')}
+                    </p>
                   </div>
-                  <div className="flex items-start gap-3">
-                    <MapPin className="text-primary mt-1" size={20} weight="duotone" />
-                    <div>
-                      <p className="font-semibold">{t('details.ceremony.location')}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {t('details.ceremony.city')}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div {...fadeInUp}>
-              <Card className="h-full border-border/50 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <Users className="text-primary" size={28} weight="duotone" />
-                    <CardTitle className="font-serif text-2xl">{t('details.reception.title')}</CardTitle>
-                  </div>
-                  <CardDescription className="text-base">
-                    {t('details.reception.description')}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-start gap-3">
-                    <Clock className="text-primary mt-1" size={20} weight="duotone" />
-                    <div>
-                      <p className="font-semibold">{t('details.reception.time')}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <MapPin className="text-primary mt-1" size={20} weight="duotone" />
-                    <div>
-                      <p className="font-semibold">{t('details.reception.location')}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {t('details.reception.city')}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-
-          <motion.div {...fadeInUp} className="mt-8">
-            <Card className="border-border/50 bg-secondary/60">
-              <CardContent className="pt-6">
-                <p className="text-center text-muted-foreground">
-                  {t('details.dress_code')}
-                </p>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
@@ -313,7 +267,8 @@ export default function App() {
             <p className="mt-3 lead">{t('location.subtitle')}</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-1 gap-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* VENUE */}
             <motion.div {...fadeInUp}>
               <Card className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <CardHeader className="pb-3">
@@ -326,14 +281,14 @@ export default function App() {
 
                 <div className="aspect-video w-full bg-secondary/60 relative overflow-hidden border-y border-border/60">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.5231234567!2d15.03!3d36.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1313b8a6e8e8e8e9%3A0x1313b8a6e8e8e8e9!2sAgua%20Resort%20-%20Noto%20Beach!5e0!3m2!1sen!2sit!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.5231234567!2d15.03!3d36.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!2sContrada+Reitani,+96017+Noto+SR,+Italia!3b1!8m2!3d36.7569388!4d15.100811!16s%2Fg%2F1hjhccp26!5e0!3m2!1sit!2sit!4v1234567890"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
-                    title="Agua Resort Location Map"
+                    title="Agua Beach Resort Location"
                   />
                 </div>
 
@@ -352,7 +307,7 @@ export default function App() {
                     className="w-full"
                     onClick={() =>
                       window.open(
-                        "https://www.google.com/maps/search/Contrada+Reitani+96017+Noto+SR+Italy",
+                        "https://www.google.com/maps/place/Agua+Beach/@36.7569302,15.100811,17z/data=!4m18!1m8!3m7!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!2sContrada+Reitani,+96017+Noto+SR,+Italia!3b1!8m2!3d36.7569388!4d15.100811!16s%2Fg%2F1hjhccp26!3m8!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!5e0!3m2!1sit!2sit!4v1234567890",
                         "_blank"
                       )
                     }
@@ -373,6 +328,93 @@ export default function App() {
                   >
                     {t('location.website_button')}
                   </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* ACCOMMODATION */}
+            <motion.div {...fadeInUp}>
+              <Card className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3 mb-1">
+                    <Users className="text-primary" size={22} weight="duotone" />
+                    <CardTitle className="font-serif text-xl">{t('location.accommodation_title')}</CardTitle>
+                  </div>
+                  <CardDescription className="text-base">{t('location.accommodation_subtitle')}</CardDescription>
+                </CardHeader>
+
+                <CardContent className="pt-0 space-y-4">
+                  {/* Agua Residence */}
+                  <div className="pb-4 border-b border-border/40">
+                    <h4 className="font-semibold text-sm mb-1">{t('location.agua_residence')}</h4>
+                    <p className="text-xs text-muted-foreground mb-3">{t('location.agua_residence_desc')}</p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full text-xs"
+                      onClick={() =>
+                        window.open(
+                          "https://www.google.com/maps/place/Agua+Residence/@36.7569302,15.100811,17z/data=!4m18!1m8!3m7!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!2sContrada+Reitani,+96017+Noto+SR,+Italia!3b1!8m2!3d36.7569388!4d15.100811!16s%2Fg%2F1hjhccp26!3m8!1s0x13122799ac28e149:0xb1c31f1d63997217!5e0!3m2!1sit!2sit!4v1234567890",
+                          "_blank"
+                        )
+                      }
+                    >
+                      Visualizza su Maps
+                    </Button>
+                  </div>
+
+                  {/* Agua Green Resort */}
+                  <div>
+                    <h4 className="font-semibold text-sm mb-1">{t('location.agua_green_resort')}</h4>
+                    <p className="text-xs text-muted-foreground mb-3">{t('location.agua_green_resort_desc')}</p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full text-xs"
+                      onClick={() =>
+                        window.open(
+                          "https://www.google.com/maps/place/Agua+Green+Resort/@36.7534718,15.0869817,17z/data=!3m1!4b1!4m9!3m8!1s0x131226d2ca85f40d:0x5c66eae20095cd84!5e0!3m2!1sit!2sit!4v1234567890",
+                          "_blank"
+                        )
+                      }
+                    >
+                      Visualizza su Maps
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* GETTING THERE */}
+            <motion.div {...fadeInUp} className="md:col-span-2">
+              <Card className="border-border/60 shadow-sm">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center gap-3 mb-1">
+                    <MapPin className="text-primary" size={22} weight="duotone" />
+                    <CardTitle className="font-serif text-xl">{t('location.getting_there')}</CardTitle>
+                  </div>
+                </CardHeader>
+
+                <CardContent className="space-y-2">
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 text-primary">✈️</div>
+                    <div>
+                      <p className="font-semibold text-sm">{t('location.getting_there_airport')}</p>
+                      <p className="text-xs text-muted-foreground">{t('location.getting_there_distance')}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 text-primary">🚗</div>
+                    <div>
+                      <p className="font-semibold text-sm">{t('location.getting_there_car')}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="mt-1 text-primary">🅿️</div>
+                    <div>
+                      <p className="font-semibold text-sm">{t('location.getting_there_parking')}</p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -559,7 +601,7 @@ export default function App() {
       {/* FOOTER */}
       <footer className="py-12 container-pad text-center bg-secondary/30">
         <Heart className="mx-auto mb-4 text-primary" size={32} weight="fill" />
-        <p className="font-serif text-lg text-foreground mb-2">Maria &amp; Edir</p>
+        <p className="font-serif text-lg text-foreground mb-2">Edir &amp; Maria</p>
         <p className="text-sm text-muted-foreground mb-4">{t('footer.date')}</p>
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Envelope size={16} />
