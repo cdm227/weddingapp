@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "subtitle": "25 settembre 2026 • Noto, Sicilia",
+    "countdown": "Prossimamente",
+    "rsvp_button": "RSVP",
+    "details_button": "Dettagli"
+  },
+  "details": {
+    "title": "Dettagli Evento",
+    "subtitle": "Unisciti a noi per una giornata d'amore e celebrazione",
+    "ceremony": {
+      "title": "Cerimonia",
+      "description": "Dove pronuncieremo i nostri sì",
+      "time": "TBA",
+      "location": "Agua Resort",
+      "city": "Noto, Sicilia"
+    },
+    "reception": {
+      "title": "Ricevimento",
+      "description": "Cena, balli e celebrazione",
+      "time": "TBA",
+      "location": "Agua Resort",
+      "city": "Noto, Sicilia"
+    },
+    "dress_code": "Codice di abbigliamento: Abbigliamento elegante da spiaggia"
+  },
+  "schedule": {
+    "title": "Timeline",
+    "subtitle": "Programma della giornata",
+    "ceremony_begins": "Inizio cerimonia",
+    "cocktail_hour": "Cocktail",
+    "reception_starts": "Inizio ricevimento",
+    "dinner_service": "Cena",
+    "dancing": "Balli e celebrazione",
+    "sendoff": "Saluti finali"
+  },
+  "location": {
+    "title": "Luogo",
+    "subtitle": "Raggiungi il nostro evento",
+    "venue": "Agua Beach Resort",
+    "description": "Venue della celebrazione",
+    "address": "Contrada Reitani, 96017",
+    "city": "Noto SR, Italia",
+    "maps_button": "Apri in Google Maps",
+    "website_button": "Visita il sito del venue"
+  },
+  "rsvp": {
+    "title": "RSVP",
+    "subtitle": "Facci sapere se potrai unirtia noi",
+    "name_label": "Nome Completo",
+    "email_label": "Email",
+    "attending_label": "Potrai partecipare?",
+    "yes": "Confermo la mia partecipazione",
+    "no": "Purtroppo non posso partecipare",
+    "guests_label": "Numero di ospiti",
+    "dietary_label": "Restrizioni Dietetiche",
+    "message_label": "Messaggio agli sposi",
+    "submit_button": "Invia RSVP",
+    "submitting_button": "Invio in corso...",
+    "success_yes": "Non vediamo l'ora di celebrare con te!",
+    "success_no": "Grazie per averci avvisato",
+    "error_required": "Per favore compila tutti i campi obbligatori",
+    "error_submit": "Qualcosa è andato storto. Riprova.",
+    "error_connection": "Impossibile inviare RSVP. Controlla la tua connessione."
+  },
+  "gallery": {
+    "title": "La nostra storia",
+    "subtitle": "Uno sguardo al nostro viaggio insieme",
+    "note": "Aggiungi/sostituisci immagini in public/photos/ più tardi (01–04)."
+  },
+  "footer": {
+    "email_label": "Domande? Contattaci a",
+    "date": "25 settembre 2026"
+  }
+}

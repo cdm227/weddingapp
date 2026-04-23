@@ -54,3 +54,63 @@
   .h2 { @apply font-display font-semibold tracking-tight text-3xl sm:text-4xl md:text-5xl; }
   .lead { @apply text-base sm:text-lg text-muted-foreground; }
 }
+
+/* Mobile-first responsive spacing */
+@media (max-width: 640px) {
+  .section {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+  
+  .container-pad {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  h1.h1, .h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  
+  h2.h2, .h2 {
+    font-size: 24px;
+  }
+  
+  .lead {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+/* Better touch targets for mobile */
+button, a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Improved card spacing on mobile */
+.grid {
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    gap: 24px;
+  }
+}
+
+/* Language button positioning on mobile */
+@media (max-width: 640px) {
+  button[aria-label="Toggle language"] {
+    top: 12px;
+    right: 12px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+}

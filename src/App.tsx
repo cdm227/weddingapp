@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { motion } from "framer-motion";
 import {
   Calendar,
@@ -31,9 +32,11 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { toast } from "sonner";
 
 export default function App() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -50,7 +53,7 @@ export default function App() {
     e.preventDefault();
 
     if (!formData.name || !formData.email) {
-      toast.error("Please fill in all required fields");
+      toast.error(t('rsvp.error_required'));
       return;
     }
 
@@ -74,8 +77,8 @@ export default function App() {
       if (response.ok) {
         toast.success(
           formData.attending === "yes"
-            ? "We can't wait to celebrate with you!"
-            : "Thank you for letting us know"
+            ? t('rsvp.success_yes')
+            : t('rsvp.success_no')
         );
 
         setFormData({
@@ -87,10 +90,10 @@ export default function App() {
           message: "",
         });
       } else {
-        toast.error("Something went wrong. Please try again.");
+        toast.error(t('rsvp.error_submit'));
       }
     } catch {
-      toast.error("Unable to submit RSVP. Please check your connection.");
+      toast.error(t('rsvp.error_connection'));
     } finally {
       setIsSubmitting(false);
     }
@@ -117,6 +120,8 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <LanguageSwitcher />
+
       {/* HERO */}
       <motion.section
         className="relative min-h-[92vh] sm:min-h-screen flex flex-col items-center justify-center container-pad text-center overflow-hidden"
@@ -152,21 +157,21 @@ export default function App() {
           </h1>
 
           <p className="font-serif text-base sm:text-lg text-white/80">
-            September 25, 2026 • Noto, Sicily
+            {t('hero.subtitle')}
           </p>
           <p className="mt-2 text-xs sm:text-sm font-semibold tracking-[0.22em] text-white/70">
-            Coming Soon
+            {t('hero.countdown')}
           </p>
 
           <div className="mt-10 flex items-center justify-center gap-3">
             <a href="#rsvp">
               <button className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-primary shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
-                RSVP
+                {t('hero.rsvp_button')}
               </button>
             </a>
             <a href="#details">
               <button className="inline-flex items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20">
-                View Details
+                {t('hero.details_button')}
               </button>
             </a>
           </div>
@@ -177,8 +182,8 @@ export default function App() {
       <section id="details" className="section container-pad max-w-4xl mx-auto">
         <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
           <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
-            <h2 className="h2">Event Details</h2>
-            <p className="mt-3 lead">Join us for a day of love and celebration</p>
+            <h2 className="h2">{t('details.title')}</h2>
+            <p className="mt-3 lead">{t('details.subtitle')}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -187,23 +192,23 @@ export default function App() {
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <Heart className="text-primary" size={28} weight="duotone" />
-                    <CardTitle className="font-serif text-2xl">Ceremony</CardTitle>
+                    <CardTitle className="font-serif text-2xl">{t('details.ceremony.title')}</CardTitle>
                   </div>
-                  <CardDescription className="text-base">Where we say "I do"</CardDescription>
+                  <CardDescription className="text-base">{t('details.ceremony.description')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-start gap-3">
                     <Clock className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">TBA</p>
+                      <p className="font-semibold">{t('details.ceremony.time')}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">Agua Resort</p>
+                      <p className="font-semibold">{t('details.ceremony.location')}</p>
                       <p className="text-sm text-muted-foreground">
-                        Noto, Sicily
+                        {t('details.ceremony.city')}
                       </p>
                     </div>
                   </div>
@@ -216,25 +221,25 @@ export default function App() {
                 <CardHeader>
                   <div className="flex items-center gap-3 mb-2">
                     <Users className="text-primary" size={28} weight="duotone" />
-                    <CardTitle className="font-serif text-2xl">Reception</CardTitle>
+                    <CardTitle className="font-serif text-2xl">{t('details.reception.title')}</CardTitle>
                   </div>
                   <CardDescription className="text-base">
-                    Dinner, dancing &amp; celebration
+                    {t('details.reception.description')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-start gap-3">
                     <Clock className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">TBA</p>
+                      <p className="font-semibold">{t('details.reception.time')}</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="text-primary mt-1" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold">Agua Resort</p>
+                      <p className="font-semibold">{t('details.reception.location')}</p>
                       <p className="text-sm text-muted-foreground">
-                        Noto, Sicily
+                        {t('details.reception.city')}
                       </p>
                     </div>
                   </div>
@@ -247,8 +252,7 @@ export default function App() {
             <Card className="border-border/50 bg-secondary/60">
               <CardContent className="pt-6">
                 <p className="text-center text-muted-foreground">
-                  <span className="font-semibold text-foreground">Dress Code:</span>{" "}
-                  Elegant seaside attire
+                  {t('details.dress_code')}
                 </p>
               </CardContent>
             </Card>
@@ -262,18 +266,18 @@ export default function App() {
       <section className="section container-pad max-w-2xl mx-auto">
         <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
           <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
-            <h2 className="h2">Schedule</h2>
-            <p className="mt-3 lead">Timeline for the day</p>
+            <h2 className="h2">{t('schedule.title')}</h2>
+            <p className="mt-3 lead">{t('schedule.subtitle')}</p>
           </motion.div>
 
           <div className="space-y-6">
             {[
-              { time: "TBA", event: "Ceremony Begins", icon: Heart },
-              { time: "TBA", event: "Cocktail Hour", icon: Users },
-              { time: "TBA", event: "Reception Starts", icon: Calendar },
-              { time: "TBA", event: "Dinner Service", icon: Users },
-              { time: "TBA", event: "Dancing & Celebration", icon: Heart },
-              { time: "TBA", event: "Send-off", icon: Heart },
+              { key: 'ceremony_begins', icon: Heart },
+              { key: 'cocktail_hour', icon: Users },
+              { key: 'reception_starts', icon: Calendar },
+              { key: 'dinner_service', icon: Users },
+              { key: 'dancing', icon: Heart },
+              { key: 'sendoff', icon: Heart },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -288,9 +292,9 @@ export default function App() {
                 </div>
                 <div className="flex-1 pb-2">
                   <p className="font-serif font-semibold text-lg text-foreground">
-                    {item.event}
+                    {t(`schedule.${item.key}`)}
                   </p>
-                  <p className="text-muted-foreground">{item.time}</p>
+                  <p className="text-muted-foreground">TBA</p>
                 </div>
               </motion.div>
             ))}
@@ -305,20 +309,19 @@ export default function App() {
         <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
           <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
             <MapPin className="mx-auto mb-4 text-primary" size={44} weight="duotone" />
-            <h2 className="h2">Location</h2>
-            <p className="mt-3 lead">Find your way to our celebration</p>
+            <h2 className="h2">{t('location.title')}</h2>
+            <p className="mt-3 lead">{t('location.subtitle')}</p>
           </motion.div>
 
           <div className="grid md:grid-cols-1 gap-8">
-            {/* Agua Resort */}
             <motion.div {...fadeInUp}>
               <Card className="overflow-hidden border-border/60 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3 mb-1">
                     <Heart className="text-primary" size={22} weight="duotone" />
-                    <CardTitle className="font-serif text-xl">Agua Beach Resort</CardTitle>
+                    <CardTitle className="font-serif text-xl">{t('location.venue')}</CardTitle>
                   </div>
-                  <CardDescription className="text-base">Our celebration venue</CardDescription>
+                  <CardDescription className="text-base">{t('location.description')}</CardDescription>
                 </CardHeader>
 
                 <div className="aspect-video w-full bg-secondary/60 relative overflow-hidden border-y border-border/60">
@@ -338,8 +341,8 @@ export default function App() {
                   <div className="flex items-start gap-3">
                     <MapPin className="text-primary mt-0.5 flex-shrink-0" size={20} weight="duotone" />
                     <div>
-                      <p className="font-semibold text-sm">Contrada Reitani, 96017</p>
-                      <p className="text-sm text-muted-foreground">Noto SR, Italy</p>
+                      <p className="font-semibold text-sm">{t('location.address')}</p>
+                      <p className="text-sm text-muted-foreground">{t('location.city')}</p>
                     </div>
                   </div>
 
@@ -354,7 +357,7 @@ export default function App() {
                       )
                     }
                   >
-                    Open in Google Maps
+                    {t('location.maps_button')}
                   </Button>
 
                   <Button
@@ -368,7 +371,7 @@ export default function App() {
                       )
                     }
                   >
-                    Visit Venue Website
+                    {t('location.website_button')}
                   </Button>
                 </CardContent>
               </Card>
@@ -383,8 +386,8 @@ export default function App() {
       <section className="section container-pad max-w-2xl mx-auto" id="rsvp">
         <motion.div {...fadeInUp}>
           <div className="text-center mb-10 sm:mb-12">
-            <h2 className="h2">RSVP</h2>
-            <p className="mt-3 lead">Please let us know if you can join us</p>
+            <h2 className="h2">{t('rsvp.title')}</h2>
+            <p className="mt-3 lead">{t('rsvp.subtitle')}</p>
           </div>
 
           <Card className="border-border/50 shadow-lg">
@@ -392,18 +395,18 @@ export default function App() {
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <Label htmlFor="name">Full Name *</Label>
+                    <Label htmlFor="name">{t('rsvp.name_label')} *</Label>
                     <Input
                       id="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Your full name"
+                      placeholder={t('rsvp.name_label')}
                       required
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="email">Email *</Label>
+                    <Label htmlFor="email">{t('rsvp.email_label')} *</Label>
                     <Input
                       id="email"
                       type="email"
@@ -416,7 +419,7 @@ export default function App() {
                 </div>
 
                 <div className="space-y-3">
-                  <Label>Will you be attending? *</Label>
+                  <Label>{t('rsvp.attending_label')} *</Label>
                   <RadioGroup
                     value={formData.attending}
                     onValueChange={(value) => setFormData({ ...formData, attending: value })}
@@ -424,13 +427,13 @@ export default function App() {
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="yes" id="yes" />
                       <Label htmlFor="yes" className="font-normal cursor-pointer">
-                        Joyfully accept
+                        {t('rsvp.yes')}
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="no" id="no" />
                       <Label htmlFor="no" className="font-normal cursor-pointer">
-                        Regretfully decline
+                        {t('rsvp.no')}
                       </Label>
                     </div>
                   </RadioGroup>
@@ -439,7 +442,7 @@ export default function App() {
                 {formData.attending === "yes" && (
                   <>
                     <div className="space-y-2">
-                      <Label htmlFor="guests">Number of Guests</Label>
+                      <Label htmlFor="guests">{t('rsvp.guests_label')}</Label>
                       <Select
                         value={formData.guests}
                         onValueChange={(value) => setFormData({ ...formData, guests: value })}
@@ -457,28 +460,28 @@ export default function App() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="dietary">Dietary Restrictions</Label>
+                      <Label htmlFor="dietary">{t('rsvp.dietary_label')}</Label>
                       <Input
                         id="dietary"
                         value={formData.dietary}
                         onChange={(e) =>
                           setFormData({ ...formData, dietary: e.target.value })
                         }
-                        placeholder="Any allergies or preferences?"
+                        placeholder={t('rsvp.dietary_label')}
                       />
                     </div>
                   </>
                 )}
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">Message for the Couple</Label>
+                  <Label htmlFor="message">{t('rsvp.message_label')}</Label>
                   <Textarea
                     id="message"
                     value={formData.message}
                     onChange={(e) =>
                       setFormData({ ...formData, message: e.target.value })
                     }
-                    placeholder="Dietary restrictions, song requests, notes..."
+                    placeholder={t('rsvp.message_label')}
                     rows={4}
                     maxLength={500}
                   />
@@ -489,7 +492,7 @@ export default function App() {
 
                 <Button type="submit" disabled={isSubmitting} className="w-full">
                   <Check size={20} weight="bold" className="mr-2" />
-                  {isSubmitting ? "Submitting..." : "Send RSVP"}
+                  {isSubmitting ? t('rsvp.submitting_button') : t('rsvp.submit_button')}
                 </Button>
 
                 <p className="text-xs text-muted-foreground">
@@ -509,8 +512,8 @@ export default function App() {
         <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
           <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
             <Camera className="mx-auto mb-4 text-primary" size={44} weight="duotone" />
-            <h2 className="h2">Our Story</h2>
-            <p className="mt-3 lead">A glimpse into our journey together</p>
+            <h2 className="h2">{t('gallery.title')}</h2>
+            <p className="mt-3 lead">{t('gallery.subtitle')}</p>
           </motion.div>
 
           <motion.div {...fadeInUp}>
@@ -547,7 +550,7 @@ export default function App() {
             </div>
 
             <p className="mt-4 text-center text-xs text-muted-foreground">
-              Add/replace images in <code>public/photos/</code> later (01–04).
+              {t('gallery.note')}
             </p>
           </motion.div>
         </motion.div>
@@ -557,10 +560,10 @@ export default function App() {
       <footer className="py-12 container-pad text-center bg-secondary/30">
         <Heart className="mx-auto mb-4 text-primary" size={32} weight="fill" />
         <p className="font-serif text-lg text-foreground mb-2">Maria &amp; Edir</p>
-        <p className="text-sm text-muted-foreground mb-4">September 25, 2026</p>
+        <p className="text-sm text-muted-foreground mb-4">{t('footer.date')}</p>
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
           <Envelope size={16} />
-          <span>Questions? Contact us at mariaedirmatrimonio@gmail.com</span>
+          <span>{t('footer.email_label')} mariaedirmatrimonio@gmail.com</span>
         </div>
       </footer>
     </div>
