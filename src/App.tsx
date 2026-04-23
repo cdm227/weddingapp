@@ -60,7 +60,7 @@ export default function App() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://formspree.io/f/xyklbalv", {
+      const response = await fetch("https://formspree.io/f/myklbaov", {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
