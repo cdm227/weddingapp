@@ -576,7 +576,7 @@ export default function App() {
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.98 }}
                       className="group relative aspect-square overflow-hidden rounded-2xl border border-border bg-secondary/10 shadow-sm hover:shadow-md transition"
-                      aria-label={`Open \${img.alt}`}
+                      aria-label={\`Open \${img.alt}\`}
                     >
                       <img
                         src={img.src}
