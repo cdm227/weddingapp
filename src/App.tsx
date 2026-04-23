@@ -10,6 +10,7 @@ import {
   Envelope,
   Check,
   Camera,
+  MapPinLine,
 } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -117,6 +118,29 @@ export default function App() {
     { src: "/photos/04.svg", alt: "Photo 04" },
   ];
 
+  const travelTips = [
+    {
+      title: t('location.travel_tip_1_title'),
+      desc: t('location.travel_tip_1_desc'),
+      icon: '✈️'
+    },
+    {
+      title: t('location.travel_tip_2_title'),
+      desc: t('location.travel_tip_2_desc'),
+      icon: '📍'
+    },
+    {
+      title: t('location.travel_tip_3_title'),
+      desc: t('location.travel_tip_3_desc'),
+      icon: '🅿️'
+    },
+    {
+      title: t('location.travel_tip_4_title'),
+      desc: t('location.travel_tip_4_desc'),
+      icon: '🛣️'
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* HERO */}
@@ -183,28 +207,28 @@ export default function App() {
             <p className="mt-3 lead">{t('details.subtitle')}</p>
           </motion.div>
 
-          <motion.div {...fadeInUp}>
-            <Card className="h-full border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300">
+          <motion.div {...fadeInUp} className="max-w-2xl mx-auto">
+            <Card className="border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300">
               <CardHeader>
                 <div className="flex items-center gap-3 mb-2">
                   <Heart className="text-primary" size={28} weight="duotone" />
-                  <CardTitle className="font-serif text-2xl">{t('details.ceremony.title')}</CardTitle>
+                  <CardTitle className="font-serif text-2xl">{t('details.event.title')}</CardTitle>
                 </div>
-                <CardDescription className="text-base">{t('details.ceremony.description')}</CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-4">
                 <div className="flex items-start gap-3">
                   <Clock className="text-primary mt-1" size={20} weight="duotone" />
                   <div>
-                    <p className="font-semibold">{t('details.ceremony.time')}</p>
+                    <p className="font-semibold">{t('details.event.time')}</p>
+                    <p className="text-sm text-muted-foreground">Ore 18:00</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <MapPin className="text-primary mt-1" size={20} weight="duotone" />
                   <div>
-                    <p className="font-semibold">{t('details.ceremony.location')}</p>
+                    <p className="font-semibold">{t('details.event.location')}</p>
                     <p className="text-sm text-muted-foreground">
-                      {t('details.ceremony.city')}
+                      {t('details.event.city')}
                     </p>
                   </div>
                 </div>
@@ -343,7 +367,7 @@ export default function App() {
                   <CardDescription className="text-base">{t('location.accommodation_subtitle')}</CardDescription>
                 </CardHeader>
 
-                <CardContent className="pt-0 space-y-4">
+                <CardContent className="space-y-4">
                   {/* Agua Residence */}
                   <div className="pb-4 border-b border-border/40">
                     <h4 className="font-semibold text-sm mb-1">{t('location.agua_residence')}</h4>
@@ -385,35 +409,26 @@ export default function App() {
               </Card>
             </motion.div>
 
-            {/* GETTING THERE */}
+            {/* TRAVEL TIPS */}
             <motion.div {...fadeInUp} className="md:col-span-2">
               <Card className="border-border/60 shadow-sm">
                 <CardHeader className="pb-3">
                   <div className="flex items-center gap-3 mb-1">
-                    <MapPin className="text-primary" size={22} weight="duotone" />
-                    <CardTitle className="font-serif text-xl">{t('location.getting_there')}</CardTitle>
+                    <MapPinLine className="text-primary" size={22} weight="duotone" />
+                    <CardTitle className="font-serif text-xl">{t('location.travel_title')}</CardTitle>
                   </div>
+                  <CardDescription className="text-base">{t('location.travel_subtitle')}</CardDescription>
                 </CardHeader>
 
-                <CardContent className="space-y-2">
-                  <div className="flex items-start gap-3">
-                    <div className="mt-1 text-primary">✈️</div>
-                    <div>
-                      <p className="font-semibold text-sm">{t('location.getting_there_airport')}</p>
-                      <p className="text-xs text-muted-foreground">{t('location.getting_there_distance')}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="mt-1 text-primary">🚗</div>
-                    <div>
-                      <p className="font-semibold text-sm">{t('location.getting_there_car')}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="mt-1 text-primary">🅿️</div>
-                    <div>
-                      <p className="font-semibold text-sm">{t('location.getting_there_parking')}</p>
-                    </div>
+                <CardContent>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {travelTips.map((tip, index) => (
+                      <div key={index} className="p-4 bg-secondary/30 rounded-lg border border-border/30">
+                        <div className="text-2xl mb-2">{tip.icon}</div>
+                        <h4 className="font-semibold text-sm mb-2">{tip.title}</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{tip.desc}</p>
+                      </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
