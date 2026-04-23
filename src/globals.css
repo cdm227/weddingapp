@@ -4,32 +4,32 @@
 
 @layer base {
   :root {
-    /* Mediterranean luxury wedding palette */
-    --background: 210 40% 98%;
-    --foreground: 215 34% 16%;
+    /* Bright Mediterranean beach wedding palette */
+    --background: 195 55% 98%;
+    --foreground: 208 26% 18%;
 
-    /* Primary: deep Aegean/navy */
-    --primary: 210 78% 30%;
+    /* Primary: bright sea turquoise */
+    --primary: 191 82% 43%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: warm soft gold sand */
-    --secondary: 41 78% 86%;
-    --secondary-foreground: 215 34% 20%;
+    /* Secondary: sunlit beach sand */
+    --secondary: 45 98% 90%;
+    --secondary-foreground: 208 24% 22%;
 
-    /* Accent: elegant coral terracotta */
-    --accent: 16 72% 52%;
+    /* Accent: sunset coral */
+    --accent: 12 90% 60%;
     --accent-foreground: 0 0% 100%;
 
     /* Muted */
-    --muted: 210 18% 63%;
-    --muted-foreground: 214 14% 42%;
+    --muted: 202 22% 66%;
+    --muted-foreground: 208 14% 44%;
 
     /* Card */
     --card: 0 0% 100%;
-    --card-foreground: 215 34% 16%;
+    --card-foreground: 208 26% 18%;
 
     /* Border / input */
-    --border: 210 24% 82%;
+    --border: 195 32% 85%;
     --input: 0 0% 100%;
   }
 
@@ -40,8 +40,8 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(circle at 15% 8%, hsla(210, 78%, 55%, 0.12), transparent 42%),
-      radial-gradient(circle at 85% 0%, hsla(41, 78%, 75%, 0.15), transparent 34%);
+      radial-gradient(circle at 22% 12%, hsla(191, 82%, 72%, 0.2), transparent 42%),
+      radial-gradient(circle at 80% 0%, hsla(45, 98%, 82%, 0.2), transparent 34%);
     background-attachment: fixed;
   }
 }
