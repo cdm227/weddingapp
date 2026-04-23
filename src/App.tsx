@@ -553,7 +553,6 @@ export default function App() {
                 </Button>
 
                 <p className="text-xs text-muted-foreground">
-                  Tip: replace <code>YOUR_FORM_ID</code> in the code once you create your
                   Formspree form.
                 </p>
               </form>
