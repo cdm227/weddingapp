@@ -5,7 +5,7 @@
 @layer base {
   :root {
     /* Mediterranean wedding palette - warm, elegant tones */
-    --background: 0 0% 98%;
+    --background: 38 92% 88%;
     --foreground: 240 10% 15%;
 
     /* Primary: Rich Mediterranean teal (more saturated & deeper) */
@@ -13,7 +13,7 @@
     --primary-foreground: 0 0% 100%;
 
     /* Secondary: Warm sand/cream tone */
-    --secondary: 38 92% 88%;
+    --secondary: 38 92% 82%;
     --secondary-foreground: 240 10% 20%;
 
     /* Accent: Coral/warm accent for highlights */
@@ -24,13 +24,13 @@
     --muted: 240 10% 50%;
     --muted-foreground: 240 10% 40%;
 
-    /* Card */
-    --card: 0 0% 100%;
+    /* Card: Slightly lighter than background for contrast */
+    --card: 38 92% 92%;
     --card-foreground: 240 10% 15%;
 
     /* Border */
-    --border: 240 10% 87%;
-    --input: 0 0% 100%;
+    --border: 38 92% 80%;
+    --input: 38 92% 92%;
   }
 
   * {
@@ -40,11 +40,15 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  html {
+    @apply bg-background;
+  }
 }
 
 @layer components {
   .section {
-    @apply py-16 sm:py-20 md:py-24;
+    @apply py-16 sm:py-20 md:py-24 bg-background;
   }
 
   .container-pad {
