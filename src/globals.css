@@ -1,0 +1,118 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  :root {
+    /* Mediterranean wedding palette - warm, elegant tones */
+    --background: 0 0% 98%;
+    --foreground: 240 10% 15%;
+
+    /* Primary: Rich Mediterranean teal (more saturated & deeper) */
+    --primary: 190 85% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Warm sand/cream tone */
+    --secondary: 38 92% 88%;
+    --secondary-foreground: 240 10% 20%;
+
+    /* Accent: Coral/warm accent for highlights */
+    --accent: 12 92% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Muted: Soft gray tones */
+    --muted: 240 10% 50%;
+    --muted-foreground: 240 10% 40%;
+
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 15%;
+
+    /* Border */
+    --border: 240 10% 87%;
+    --input: 0 0% 100%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .section {
+    @apply py-16 sm:py-20 md:py-24;
+  }
+
+  .container-pad {
+    @apply px-4 sm:px-6 md:px-8;
+  }
+
+  .h1 {
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight;
+  }
+
+  .h2 {
+    @apply text-2xl sm:text-3xl font-bold tracking-tight text-foreground;
+  }
+
+  .lead {
+    @apply text-base sm:text-lg text-muted-foreground;
+  }
+}
+
+/* Mobile-first responsive spacing */
+@media (max-width: 640px) {
+  .section {
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .container-pad {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  h1.h1,
+  .h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  h2.h2,
+  .h2 {
+    font-size: 24px;
+  }
+
+  .lead {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section {
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+  }
+}
+
+/* Better touch targets for mobile */
+button,
+a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Improved card spacing on mobile */
+.grid {
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    gap: 24px;
+  }
+}
