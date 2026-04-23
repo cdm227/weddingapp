@@ -24,13 +24,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { toast } from "sonner";
@@ -41,7 +34,7 @@ export default function App() {
     name: "",
     email: "",
     attending: "yes",
-    guests: "1",
+    guests: "",
     dietary: "",
     message: "",
   });
@@ -85,7 +78,7 @@ export default function App() {
           name: "",
           email: "",
           attending: "yes",
-          guests: "1",
+          guests: "",
           dietary: "",
           message: "",
         });
@@ -150,12 +143,13 @@ export default function App() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/65 to-secondary/40" />
+        {/* Softer hero gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/40 via-primary/20 to-secondary/5" />
         <div
-          className="absolute inset-0 opacity-[0.08]"
+          className="absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage:
-              "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.9) 1px, transparent 0)",
+              "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.95) 1px, transparent 0)",
             backgroundSize: "44px 44px",
           }}
         />
@@ -303,9 +297,9 @@ export default function App() {
                   <CardDescription className="text-base">{t('location.description')}</CardDescription>
                 </CardHeader>
 
-                <div className="aspect-video w-full bg-secondary/60 relative overflow-hidden border-y border-border/60">
+                <div className="aspect-video w-full bg-secondary/20 relative overflow-hidden border-y border-border/60">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.5231234567!2d15.03!3d36.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!2sContrada+Reitani,+96017+Noto+SR,+Italia!3b1!8m2!3d36.7569388!4d15.100811!16s%2Fg%2F1hjhccp26!5e0!3m2!1sit!2sit!4v1234567890"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3100.5231234567!2d15.03!3d36.89!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!2sContrada+Reitani,+96017+Noto+SR,+Italia!3b1!8m2!3d36.7569388!4d15.100811!16s%2Fg%2F1hjhccp26"
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -331,7 +325,7 @@ export default function App() {
                     className="w-full"
                     onClick={() =>
                       window.open(
-                        "https://www.google.com/maps/place/Agua+Beach/@36.7569302,15.100811,17z/data=!4m18!1m8!3m7!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!2sContrada+Reitani,+96017+Noto+SR,+Italia!3b1!8m2!3d36.7569388!4d15.100811!16s%2Fg%2F1hjhccp26!3m8!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!5e0!3m2!1sit!2sit!4v1234567890",
+                        "https://www.google.com/maps/place/Agua+Beach/@36.7569302,15.100811,17z",
                         "_blank"
                       )
                     }
@@ -378,7 +372,7 @@ export default function App() {
                       className="w-full text-xs"
                       onClick={() =>
                         window.open(
-                          "https://www.google.com/maps/place/Agua+Residence/@36.7569302,15.100811,17z/data=!4m18!1m8!3m7!1s0x131226ca9af2363b:0x42b3175f9c4d34d3!2sContrada+Reitani,+96017+Noto+SR,+Italia!3b1!8m2!3d36.7569388!4d15.100811!16s%2Fg%2F1hjhccp26!3m8!1s0x13122799ac28e149:0xb1c31f1d63997217!5e0!3m2!1sit!2sit!4v1234567890",
+                          "https://www.google.com/maps/place/Agua+Residence/@36.7569302,15.100811,17z",
                           "_blank"
                         )
                       }
@@ -397,7 +391,7 @@ export default function App() {
                       className="w-full text-xs"
                       onClick={() =>
                         window.open(
-                          "https://www.google.com/maps/place/Agua+Green+Resort/@36.7534718,15.0869817,17z/data=!3m1!4b1!4m9!3m8!1s0x131226d2ca85f40d:0x5c66eae20095cd84!5e0!3m2!1sit!2sit!4v1234567890",
+                          "https://www.google.com/maps/place/Agua+Green+Resort/@36.7534718,15.0869817,17z",
                           "_blank"
                         )
                       }
@@ -423,7 +417,7 @@ export default function App() {
                 <CardContent>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {travelTips.map((tip, index) => (
-                      <div key={index} className="p-4 bg-secondary/30 rounded-lg border border-border/30">
+                      <div key={index} className="p-4 bg-secondary/10 rounded-lg border border-border/30">
                         <div className="text-2xl mb-2">{tip.icon}</div>
                         <h4 className="font-semibold text-sm mb-2">{tip.title}</h4>
                         <p className="text-xs text-muted-foreground leading-relaxed">{tip.desc}</p>
@@ -500,20 +494,14 @@ export default function App() {
                   <>
                     <div className="space-y-2">
                       <Label htmlFor="guests">{t('rsvp.guests_label')}</Label>
-                      <Select
+                      <Input
+                        id="guests"
+                        type="number"
+                        min={0}
                         value={formData.guests}
-                        onValueChange={(value) => setFormData({ ...formData, guests: value })}
-                      >
-                        <SelectTrigger id="guests">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="1">1 Guest</SelectItem>
-                          <SelectItem value="2">2 Guests</SelectItem>
-                          <SelectItem value="3">3 Guests</SelectItem>
-                          <SelectItem value="4">4 Guests</SelectItem>
-                        </SelectContent>
-                      </Select>
+                        onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+                        placeholder="Numero di ospiti"
+                      />
                     </div>
 
                     <div className="space-y-2">
@@ -547,14 +535,16 @@ export default function App() {
                   </p>
                 </div>
 
-                <Button type="submit" disabled={isSubmitting} className="w-full">
+                {/* Submit button uses primary color (not accent/orange) */}
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-primary text-primary-foreground hover:brightness-105"
+                >
                   <Check size={20} weight="bold" className="mr-2" />
                   {isSubmitting ? t('rsvp.submitting_button') : t('rsvp.submit_button')}
                 </Button>
 
-                <p className="text-xs text-muted-foreground">
-                  Formspree form.
-                </p>
               </form>
             </CardContent>
           </Card>
@@ -585,8 +575,8 @@ export default function App() {
                       type="button"
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.98 }}
-                      className="group relative aspect-square overflow-hidden rounded-2xl border border-border bg-secondary/50 shadow-sm hover:shadow-md transition"
-                      aria-label={`Open ${img.alt}`}
+                      className="group relative aspect-square overflow-hidden rounded-2xl border border-border bg-secondary/10 shadow-sm hover:shadow-md transition"
+                      aria-label={\`Open \${img.alt}\`}
                     >
                       <img
                         src={img.src}
