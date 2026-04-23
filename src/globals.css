@@ -4,32 +4,32 @@
 
 @layer base {
   :root {
-    /* Mediterranean wedding palette - warm, elegant tones */
-    --background: 0 0% 98%;
-    --foreground: 240 10% 15%;
+    /* Mediterranean luxury wedding palette */
+    --background: 210 40% 98%;
+    --foreground: 215 34% 16%;
 
-    /* Primary: Rich Mediterranean teal (more saturated & deeper) */
-    --primary: 190 85% 38%;
+    /* Primary: deep Aegean/navy */
+    --primary: 210 78% 30%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Warm sand/cream tone */
-    --secondary: 38 92% 88%;
-    --secondary-foreground: 240 10% 20%;
+    /* Secondary: warm soft gold sand */
+    --secondary: 41 78% 86%;
+    --secondary-foreground: 215 34% 20%;
 
-    /* Accent: Coral/warm accent for highlights */
-    --accent: 12 92% 55%;
+    /* Accent: elegant coral terracotta */
+    --accent: 16 72% 52%;
     --accent-foreground: 0 0% 100%;
 
-    /* Muted: Soft gray tones */
-    --muted: 240 10% 50%;
-    --muted-foreground: 240 10% 40%;
+    /* Muted */
+    --muted: 210 18% 63%;
+    --muted-foreground: 214 14% 42%;
 
     /* Card */
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 15%;
+    --card-foreground: 215 34% 16%;
 
-    /* Border */
-    --border: 240 10% 87%;
+    /* Border / input */
+    --border: 210 24% 82%;
     --input: 0 0% 100%;
   }
 
@@ -39,6 +39,10 @@
 
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(circle at 15% 8%, hsla(210, 78%, 55%, 0.12), transparent 42%),
+      radial-gradient(circle at 85% 0%, hsla(41, 78%, 75%, 0.15), transparent 34%);
+    background-attachment: fixed;
   }
 }
 
