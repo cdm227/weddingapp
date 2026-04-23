@@ -9,20 +9,12 @@
     "title": "Dettagli Evento",
     "subtitle": "Unisciti a noi per una giornata d'amore e celebrazione",
     "ceremony": {
-      "title": "Cerimonia",
-      "description": "Dove pronuncieremo i nostri sì",
-      "time": "TBA",
+      "title": "Cerimonia e Ricevimento",
+      "description": "Agua Resort, Noto, Sicilia",
+      "time": "Ore 18:00",
       "location": "Agua Resort",
       "city": "Noto, Sicilia"
-    },
-    "reception": {
-      "title": "Ricevimento",
-      "description": "Cena, balli e celebrazione",
-      "time": "TBA",
-      "location": "Agua Resort",
-      "city": "Noto, Sicilia"
-    },
-    "dress_code": "Codice di abbigliamento: Abbigliamento elegante da spiaggia"
+    }
   },
   "schedule": {
     "title": "Timeline",
@@ -38,11 +30,22 @@
     "title": "Luogo",
     "subtitle": "Raggiungi il nostro evento",
     "venue": "Agua Beach Resort",
-    "description": "Venue della celebrazione",
+    "description": "La nostra celebrazione",
     "address": "Contrada Reitani, 96017",
     "city": "Noto SR, Italia",
     "maps_button": "Apri in Google Maps",
-    "website_button": "Visita il sito del venue"
+    "website_button": "Visita il sito della venue",
+    "accommodation_title": "Dove Alloggiare",
+    "accommodation_subtitle": "Opzioni di alloggio nel resort",
+    "agua_residence": "Agua Residence",
+    "agua_residence_desc": "Camere confortevoli nel complesso principale",
+    "agua_green_resort": "Agua Green Resort",
+    "agua_green_resort_desc": "Villette indipendenti con privacy esclusiva",
+    "getting_there": "Come Arrivare",
+    "getting_there_airport": "Aeroporto di Catania",
+    "getting_there_distance": "Circa 90 minuti in auto",
+    "getting_there_parking": "Parcheggio disponibile presso la venue",
+    "getting_there_car": "Auto a noleggio consigliata"
   },
   "rsvp": {
     "title": "RSVP",
@@ -53,7 +56,7 @@
     "yes": "Confermo la mia partecipazione",
     "no": "Purtroppo non posso partecipare",
     "guests_label": "Numero di ospiti",
-    "dietary_label": "Restrizioni Dietetiche",
+    "dietary_label": "Eventuali Intolleranze",
     "message_label": "Messaggio agli sposi",
     "submit_button": "Invia RSVP",
     "submitting_button": "Invio in corso...",
