@@ -4,51 +4,56 @@
 
 @layer base {
   :root {
-    /* Mediterranean wedding palette - warm, elegant tones */
-    --background: 38 92% 88%;
-    --foreground: 240 10% 15%;
+    /* Balanced Mediterranean wedding palette (elegant + beach) */
+    --background: 195 45% 97%;
+    --foreground: 210 24% 18%;
 
-    /* Primary: Rich Mediterranean teal (more saturated & deeper) */
-    --primary: 190 85% 38%;
+    /* Primary: sea turquoise */
+    --primary: 191 82% 43%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: Warm sand/cream tone */
-    --secondary: 38 92% 82%;
-    --secondary-foreground: 240 10% 20%;
+    /* Secondary: warm sand */
+    --secondary: 42 88% 88%;
+    --secondary-foreground: 210 24% 22%;
 
-    /* Accent: Coral/warm accent for highlights */
-    --accent: 12 92% 55%;
+    /* Accent: sunset coral */
+    --accent: 12 90% 60%;
     --accent-foreground: 0 0% 100%;
 
-    /* Muted: Soft gray tones */
-    --muted: 240 10% 50%;
-    --muted-foreground: 240 10% 40%;
+    /* Muted neutrals */
+    --muted: 202 22% 66%;
+    --muted-foreground: 208 14% 44%;
 
-    /* Card: Slightly lighter than background for contrast */
-    --card: 38 92% 92%;
-    --card-foreground: 240 10% 15%;
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 210 24% 18%;
 
-    /* Border */
-    --border: 38 92% 80%;
-    --input: 38 92% 92%;
+    /* Border / input */
+    --border: 196 28% 84%;
+    --input: 0 0% 100%;
   }
 
   * {
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-  }
-
   html {
     @apply bg-background;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    /* subtle sea + sunlight ambience */
+    background-image:
+      radial-gradient(circle at 20% 10%, hsla(195, 75%, 78%, 0.16), transparent 40%),
+      radial-gradient(circle at 80% 0%, hsla(42, 90%, 80%, 0.14), transparent 35%);
+    background-attachment: fixed;
   }
 }
 
 @layer components {
   .section {
-    @apply py-16 sm:py-20 md:py-24 bg-background;
+    @apply py-16 sm:py-20 md:py-24;
   }
 
   .container-pad {
