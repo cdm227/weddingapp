@@ -26,6 +26,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { getPhotoPath } from "@/lib/utils";
 import { toast } from "sonner";
 
 export default function App() {
@@ -105,12 +106,12 @@ export default function App() {
   };
 
   const gallery = [
-    { src: "/photos/Img01.jpg", alt: "Photo 01" },
-    { src: "/photos/Img02.jpg", alt: "Photo 02" },
-    { src: "/photos/Img03.jpg", alt: "Photo 03" },
-    { src: "/photos/Img04.jpg", alt: "Photo 04" },
-    { src: "/photos/Img05.jpg", alt: "Photo 05" },
-    { src: "/photos/Img06.jpg", alt: "Photo 06" },
+    { file: "Img01.jpg", alt: "Photo 01" },
+    { file: "Img02.jpg", alt: "Photo 02" },
+    { file: "Img03.jpg", alt: "Photo 03" },
+    { file: "Img04.jpg", alt: "Photo 04" },
+    { file: "Img05.jpg", alt: "Photo 05" },
+    { file: "Img06.jpg", alt: "Photo 06" },
   ];
 
   const travelTips = [
@@ -594,7 +595,7 @@ export default function App() {
             : "md:col-span-4";
         return (
           <Dialog
-            key={img.src}
+            key={getPhotoPath(img.file)}
             open={selectedImage === index}
             onOpenChange={(open) =>
               setSelectedImage(open ? index : null)
@@ -607,7 +608,7 @@ export default function App() {
                 className={`group relative overflow-hidden rounded-[28px] bg-secondary/10 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_60px_rgba(0,0,0,0.10)] transition-all duration-700 ${layout}`}
               >
                 <img
-                  src={img.src}
+                  src={getPhotoPath(img.file)}
                   alt={img.alt}
                   loading="lazy"
                   className="h-full w-full object-cover min-h-[260px] md:min-h-[320px] group-hover:scale-[1.04] transition duration-700 ease-out"
@@ -635,7 +636,7 @@ export default function App() {
             <DialogContent className="max-w-6xl p-0 bg-transparent border-none shadow-none">
               <div className="overflow-hidden rounded-3xl">
                 <img
-                  src={img.src}
+                  src={getPhotoPath(img.file)}
                   alt={img.alt}
                   className="w-full h-auto"
                 />
@@ -653,6 +654,67 @@ export default function App() {
     >
       
     </motion.p>
+  </motion.div>
+</section>
+
+{/* SHARED MEMORIES - WEDSHOOTS */}
+<section className="section container-pad max-w-4xl mx-auto py-24">
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.6 }}
+    className="text-center"
+  >
+    {/* Icon */}
+    <Camera className="mx-auto mb-5 text-primary" size={42} />
+
+    {/* Title */}
+    <h2 className="h2">
+      Momenti condivisi
+    </h2>
+
+    {/* Soft, non-mandatory subtitle (IMPORTANT UX CHANGE) */}
+    <p className="mt-4 text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+      Condivideremo i momenti della giornata in un album fotografico su WedShoots, per rivivere la festa da prospettive diverse.
+      <br />
+        Chi vuole potrà aggiungere i propri scatti.
+    </p>
+
+    {/* Card */}
+    <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+      <p className="text-sm text-muted-foreground mb-3">
+        Accesso album WedShoots
+      </p>
+
+      <div className="text-xl font-mono tracking-wider">
+        IT8ffc35bd
+      </div>
+
+      <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+        <button
+          onClick={() =>
+            navigator.clipboard.writeText("IT8ffc35bd")
+          }
+          className="px-5 py-2 rounded-full bg-black text-white text-sm hover:opacity-80 transition"
+        >
+          Copia codice
+        </button>
+
+        <a
+          href="https://www.matrimonio.com/web/edir-and-maria/wedshoots-8"
+          target="_blank"
+          className="px-5 py-2 rounded-full border border-white/20 text-sm hover:bg-white/10 transition"
+        >
+          Apri WedShoots
+        </a>
+      </div>
+    </div>
+
+    {/* Soft reassurance (key UX improvement) */}
+    <p className="mt-8 text-xs text-muted-foreground">
+      "Se ti va di catturare un momento, lo accoglieremo con gioia." ❤️
+    </p>
   </motion.div>
 </section>
 
