@@ -365,10 +365,17 @@ export default function App() {
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                  {/* Agua Residence */}
-                  <div className="pb-4 border-b border-border/40">
-                    <h4 className="font-semibold text-sm mb-1">{t('location.agua_residence')}</h4>
-                    <p className="text-xs text-muted-foreground mb-3">{t('location.agua_residence_desc')}</p>
+                {/* Agua Residence */}
+                  <div className="pb-4 border-b border-border/40 space-y-3">
+                    <div>
+                      <h4 className="font-semibold text-sm mb-1">
+                        {t('location.agua_residence')}
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        {t('location.agua_residence_desc')}
+                      </p>
+                    </div>
+
                     <Button
                       variant="outline"
                       size="sm"
@@ -382,12 +389,33 @@ export default function App() {
                     >
                       Visualizza su Maps
                     </Button>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full text-xs"
+                      onClick={() =>
+                        window.open(
+                          "https://www.aguaresort.it/agua-residence/",
+                          "_blank"
+                        )
+                      }
+                    >
+                      {t('location.website_button')}
+                    </Button>
                   </div>
 
                   {/* Agua Green Resort */}
-                  <div>
-                    <h4 className="font-semibold text-sm mb-1">{t('location.agua_green_resort')}</h4>
-                    <p className="text-xs text-muted-foreground mb-3">{t('location.agua_green_resort_desc')}</p>
+                  <div className="space-y-3">
+                    <div>
+                      <h4 className="font-semibold text-sm mb-1">
+                        {t('location.agua_green_resort')}
+                      </h4>
+                      <p className="text-xs text-muted-foreground">
+                        {t('location.agua_green_resort_desc')}
+                      </p>
+                    </div>
+
                     <Button
                       variant="outline"
                       size="sm"
@@ -400,6 +428,20 @@ export default function App() {
                       }
                     >
                       Visualizza su Maps
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="w-full text-xs"
+                      onClick={() =>
+                        window.open(
+                          "https://www.aguaresort.it/agua-green-resort/",
+                          "_blank"
+                        )
+                      }
+                    >
+                      {t('location.website_button')}
                     </Button>
                   </div>
                 </CardContent>
