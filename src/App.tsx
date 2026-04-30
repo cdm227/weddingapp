@@ -105,10 +105,12 @@ export default function App() {
   };
 
   const gallery = [
-    { src: "/photos/01.svg", alt: "Photo 01" },
-    { src: "/photos/02.svg", alt: "Photo 02" },
-    { src: "/photos/03.svg", alt: "Photo 03" },
-    { src: "/photos/04.svg", alt: "Photo 04" },
+    { src: "/photos/Img01.jpg", alt: "Photo 01" },
+    { src: "/photos/Img02.jpg", alt: "Photo 02" },
+    { src: "/photos/Img03.jpg", alt: "Photo 03" },
+    { src: "/photos/Img04.jpg", alt: "Photo 04" },
+    { src: "/photos/Img05.jpg", alt: "Photo 05" },
+    { src: "/photos/Img06.jpg", alt: "Photo 06" },
   ];
 
   const travelTips = [

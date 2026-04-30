@@ -72,8 +72,8 @@
   },
   "gallery": {
     "title": "La nostra storia",
-    "subtitle": "Uno sguardo al nostro viaggio insieme",
-    "note": "Aggiungi/sostituisci immagini in public/photos/ più tardi (01–04)."
+    "subtitle": "Uno sguardo al nostro viaggio insieme"
+    
   },
   "footer": {
     "email_label": "Domande? Contattaci a",
