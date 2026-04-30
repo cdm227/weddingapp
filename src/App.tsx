@@ -555,54 +555,106 @@ export default function App() {
 
       <Separator className="max-w-4xl mx-auto" />
 
-      {/* GALLERY */}
-      <section className="section container-pad max-w-4xl mx-auto">
-        <motion.div variants={staggerContainer} initial="initial" whileInView="whileInView">
-          <motion.div {...fadeInUp} className="text-center mb-10 sm:mb-12">
-            <Camera className="mx-auto mb-4 text-primary" size={44} weight="duotone" />
-            <h2 className="h2">{t('gallery.title')}</h2>
-            <p className="mt-3 lead">{t('gallery.subtitle')}</p>
-          </motion.div>
+{/* PREMIUM GALLERY - MINIMAL LUXURY */}
+<section className="section container-pad max-w-7xl mx-auto py-24">
+  <motion.div
+    variants={staggerContainer}
+    initial="initial"
+    whileInView="whileInView"
+    viewport={{ once: true }}
+  >
+    {/* Header */}
+    <motion.div {...fadeInUp} className="text-center mb-16">
+      <Camera
+        className="mx-auto mb-5 text-primary/90"
+        size={42}
+        weight="duotone"
+      />
 
-          <motion.div {...fadeInUp}>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {gallery.map((img, index) => (
-                <Dialog
-                  key={img.src}
-                  open={selectedImage === index}
-                  onOpenChange={(open) => setSelectedImage(open ? index : null)}
-                >
-                  <DialogTrigger asChild>
-                    <motion.button
-                      type="button"
-                      whileHover={{ scale: 1.03 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="group relative aspect-square overflow-hidden rounded-2xl border border-border bg-secondary/10 shadow-sm hover:shadow-md transition"
-                      aria-label={`Open \${img.alt}`}
-                    >
-                      <img
-                        src={img.src}
-                        alt={img.alt}
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                      <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </motion.button>
-                  </DialogTrigger>
+      <h2 className="h2 tracking-tight">
+        {t("gallery.title")}
+      </h2>
 
-                  <DialogContent className="max-w-4xl p-0 overflow-hidden">
-                    <img src={img.src} alt={img.alt} className="w-full h-auto" />
-                  </DialogContent>
-                </Dialog>
-              ))}
-            </div>
+      <p className="mt-4 max-w-2xl mx-auto text-muted-foreground leading-relaxed">
+        {t("gallery.subtitle")}
+      </p>
+    </motion.div>
 
-            <p className="mt-4 text-center text-xs text-muted-foreground">
-              {t('gallery.note')}
-            </p>
-          </motion.div>
-        </motion.div>
-      </section>
+    {/* Layout */}
+    <motion.div
+      {...fadeInUp}
+      className="grid grid-cols-1 md:grid-cols-12 gap-5"
+    >
+      {gallery.map((img, index) => {
+        const layout =
+          index === 0
+            ? "md:col-span-7 md:row-span-2"
+            : index === 1 || index === 2
+            ? "md:col-span-5"
+            : "md:col-span-4";
+        return (
+          <Dialog
+            key={img.src}
+            open={selectedImage === index}
+            onOpenChange={(open) =>
+              setSelectedImage(open ? index : null)
+            }
+          >
+            <DialogTrigger asChild>
+              <motion.button
+                whileHover={{ y: -6 }}
+                whileTap={{ scale: 0.99 }}
+                className={`group relative overflow-hidden rounded-[28px] bg-secondary/10 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_60px_rgba(0,0,0,0.10)] transition-all duration-700 ${layout}`}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className="h-full w-full object-cover min-h-[260px] md:min-h-[320px] group-hover:scale-[1.04] transition duration-700 ease-out"
+                />
+
+                {/* soft overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent opacity-70 group-hover:opacity-90 transition duration-700" />
+
+                {/* Label */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
+                  <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500">
+                    <p className="text-white text-sm tracking-[0.22em] uppercase">
+                      View Image
+                    </p>
+                  </div>
+
+                  <div className="h-10 w-10 rounded-full border border-white/30 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition duration-500">
+                    +
+                  </div>
+                </div>
+              </motion.button>
+            </DialogTrigger>
+
+            {/* Lightbox */}
+            <DialogContent className="max-w-6xl p-0 bg-transparent border-none shadow-none">
+              <div className="overflow-hidden rounded-3xl">
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  className="w-full h-auto"
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+        );
+      })}
+    </motion.div>
+
+    {/* Footer note */}
+    <motion.p
+      {...fadeInUp}
+      className="mt-10 text-center text-sm text-muted-foreground tracking-wide"
+    >
+      
+    </motion.p>
+  </motion.div>
+</section>
 
       {/* FOOTER */}
       <footer className="py-12 container-pad text-center bg-secondary/30">
