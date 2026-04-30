@@ -4,32 +4,32 @@
 
 @layer base {
   :root {
-    /* Balanced Mediterranean wedding palette (elegant + beach) */
-    --background: 195 45% 97%;
-    --foreground: 210 24% 18%;
+    /* Bright Mediterranean beach wedding palette */
+    --background: 195 55% 98%;
+    --foreground: 208 26% 18%;
 
-    /* Primary: sea turquoise */
+    /* Primary: bright sea turquoise */
     --primary: 191 82% 43%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary: warm sand */
-    --secondary: 42 88% 88%;
-    --secondary-foreground: 210 24% 22%;
+    /* Secondary: sunlit beach sand */
+    --secondary: 45 98% 90%;
+    --secondary-foreground: 208 24% 22%;
 
     /* Accent: sunset coral */
     --accent: 12 90% 60%;
     --accent-foreground: 0 0% 100%;
 
-    /* Muted neutrals */
+    /* Muted */
     --muted: 202 22% 66%;
     --muted-foreground: 208 14% 44%;
 
     /* Card */
     --card: 0 0% 100%;
-    --card-foreground: 210 24% 18%;
+    --card-foreground: 208 26% 18%;
 
     /* Border / input */
-    --border: 196 28% 84%;
+    --border: 195 32% 85%;
     --input: 0 0% 100%;
   }
 
@@ -37,16 +37,11 @@
     @apply border-border;
   }
 
-  html {
-    @apply bg-background;
-  }
-
   body {
     @apply bg-background text-foreground;
-    /* subtle sea + sunlight ambience */
     background-image:
-      radial-gradient(circle at 20% 10%, hsla(195, 75%, 78%, 0.16), transparent 40%),
-      radial-gradient(circle at 80% 0%, hsla(42, 90%, 80%, 0.14), transparent 35%);
+      radial-gradient(circle at 22% 12%, hsla(191, 82%, 72%, 0.2), transparent 42%),
+      radial-gradient(circle at 80% 0%, hsla(45, 98%, 82%, 0.2), transparent 34%);
     background-attachment: fixed;
   }
 }
@@ -123,15 +118,5 @@ a {
 @media (min-width: 768px) {
   .grid {
     gap: 24px;
-  }
-}
-
-/* Mobile button positioning */
-@media (max-width: 640px) {
-  button[aria-label="Toggle language"] {
-    top: 12px;
-    right: 12px;
-    padding: 8px 12px;
-    font-size: 11px;
   }
 }

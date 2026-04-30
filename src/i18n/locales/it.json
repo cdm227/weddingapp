@@ -8,21 +8,12 @@
   "details": {
     "title": "Dettagli Evento",
     "subtitle": "Unisciti a noi per una giornata d'amore e celebrazione",
-    "ceremony": {
-      "title": "Cerimonia",
-      "description": "Dove pronuncieremo i nostri sì",
-      "time": "TBA",
+    "event": {
+      "title": "Cerimonia e Ricevimento",
       "location": "Agua Resort",
-      "city": "Noto, Sicilia"
-    },
-    "reception": {
-      "title": "Ricevimento",
-      "description": "Cena, balli e celebrazione",
-      "time": "TBA",
-      "location": "Agua Resort",
-      "city": "Noto, Sicilia"
-    },
-    "dress_code": "Codice di abbigliamento: Abbigliamento elegante da spiaggia"
+      "city": "Noto, Sicilia",
+      "time": "Ore 18:00"
+    }
   },
   "schedule": {
     "title": "Timeline",
@@ -38,11 +29,27 @@
     "title": "Luogo",
     "subtitle": "Raggiungi il nostro evento",
     "venue": "Agua Beach Resort",
-    "description": "Venue della celebrazione",
+    "description": "La nostra celebrazione",
     "address": "Contrada Reitani, 96017",
     "city": "Noto SR, Italia",
     "maps_button": "Apri in Google Maps",
-    "website_button": "Visita il sito del venue"
+    "website_button": "Visita il sito della venue",
+    "accommodation_title": "Dove Alloggiare",
+    "accommodation_subtitle": "Opzioni di alloggio nel resort",
+    "agua_residence": "Agua Residence",
+    "agua_residence_desc": "Camere confortevoli nel complesso principale",
+    "agua_green_resort": "Agua Green Resort",
+    "agua_green_resort_desc": "Villette indipendenti con privacy esclusiva",
+    "travel_title": "Consigli per Arrivare",
+    "travel_subtitle": "Come raggiungerci senza perdersi",
+    "travel_tip_1_title": "Aeroporto di Catania",
+    "travel_tip_1_desc": "L'aeroporto più vicino è Catania (CTA), a circa 90 minuti di auto da Noto. Consigliamo di noleggiare un'auto per comodità.",
+    "travel_tip_2_title": "Coordinate GPS",
+    "travel_tip_2_desc": "Immetti 'Agua Beach Resort Noto' o usa le coordinate GPS: 36.7569°N, 15.1008°E nel tuo navigatore.",
+    "travel_tip_3_title": "Parcheggio",
+    "travel_tip_3_desc": "Il parcheggio è disponibile presso la venue. Non è necessario cercare parcheggio in strada.",
+    "travel_tip_4_title": "Viaggio da Catania",
+    "travel_tip_4_desc": "Seguire la SS 114 in direzione sud verso Siracusa, quindi prendere la direzione per Noto. Seguire i cartelli per Agua Resort."
   },
   "rsvp": {
     "title": "RSVP",
@@ -53,7 +60,7 @@
     "yes": "Confermo la mia partecipazione",
     "no": "Purtroppo non posso partecipare",
     "guests_label": "Numero di ospiti",
-    "dietary_label": "Restrizioni Dietetiche",
+    "dietary_label": "Eventuali Intolleranze",
     "message_label": "Messaggio agli sposi",
     "submit_button": "Invia RSVP",
     "submitting_button": "Invio in corso...",
@@ -64,9 +71,9 @@
     "error_connection": "Impossibile inviare RSVP. Controlla la tua connessione."
   },
   "gallery": {
-    "title": "La nostra storia",
-    "subtitle": "Uno sguardo al nostro viaggio insieme",
-    "note": "Aggiungi/sostituisci immagini in public/photos/ più tardi (01–04)."
+    "title": "Momenti senza tempo",
+    "subtitle": "Uno sguardo ai ricordi, alle emozioni e al nostro viaggio insieme."
+    
   },
   "footer": {
     "email_label": "Domande? Contattaci a",
