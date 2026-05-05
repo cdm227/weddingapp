@@ -146,17 +146,25 @@ export default function App() {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Softer hero gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/40 via-primary/20 to-secondary/5" />
+
+        {/* BACKGROUND IMAGE */}
         <div
-          className="absolute inset-0 opacity-[0.06]"
+          className="absolute inset-0 scale-110 will-change-transform"
           style={{
-            backgroundImage:
-              "radial-gradient(circle at 2px 2px, rgba(255,255,255,0.95) 1px, transparent 0)",
-            backgroundSize: "44px 44px",
+            backgroundImage: `url(${import.meta.env.BASE_URL}photos/sea-agua.jpg)`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "saturate(0.9) contrast(1.02) brightness(1.05)",
           }}
         />
 
+        {/* SOFT ROMANTIC OVERLAY */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-white/10 to-primary/10" />
+
+        {/* VERY LIGHT FOG (OPTIONAL LUXURY DEPTH) */}
+        <div className="absolute inset-0 opacity-10 mix-blend-soft-light bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.4),transparent_70%)]" />
+
+        {/* CONTENT */}
         <motion.div
           className="relative z-10 max-w-3xl"
           initial={{ opacity: 0, scale: 0.96 }}
@@ -167,16 +175,17 @@ export default function App() {
             className="mx-auto mb-6"
             size={44}
             weight="fill"
-            style={{ color: "hsl(var(--primary))" }}
+            style={{ color: "white" }}
           />
 
           <h1 className="font-display font-bold text-5xl sm:text-6xl md:text-7xl text-white mb-4 leading-none">
             Edir &amp; Maria
           </h1>
 
-          <p className="font-serif text-base sm:text-lg text-white/80">
+          <p className="font-serif text-base sm:text-lg text-white/100">
             {t('hero.subtitle')}
           </p>
+
           <p className="mt-2 text-xs sm:text-sm font-semibold tracking-[0.22em] text-white/70">
             {t('hero.countdown')}
           </p>
@@ -187,6 +196,7 @@ export default function App() {
                 {t('hero.rsvp_button')}
               </button>
             </a>
+
             <a href="#details">
               <button className="inline-flex items-center justify-center rounded-2xl border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20">
                 {t('hero.details_button')}
@@ -249,7 +259,6 @@ export default function App() {
             {[
               { key: 'ceremony_begins', icon: Heart },
               { key: 'cocktail_hour', icon: Users },
-              { key: 'reception_starts', icon: Calendar },
               { key: 'dinner_service', icon: Users },
               { key: 'dancing', icon: Heart },
               { key: 'sendoff', icon: Heart },
@@ -269,7 +278,7 @@ export default function App() {
                   <p className="font-serif font-semibold text-lg text-foreground">
                     {t(`schedule.${item.key}`)}
                   </p>
-                  <p className="text-muted-foreground">TBA</p>
+                  <p className="text-muted-foreground">{t(`schedule.${item.key}_time`)}</p>
                 </div>
               </motion.div>
             ))}
@@ -365,7 +374,7 @@ export default function App() {
                 </CardHeader>
 
                 <CardContent className="space-y-4">
-                {/* Agua Residence */}
+                  {/* Agua Residence */}
                   <div className="pb-4 border-b border-border/40 space-y-3">
                     <div>
                       <h4 className="font-semibold text-sm mb-1">
@@ -598,167 +607,173 @@ export default function App() {
 
       <Separator className="max-w-4xl mx-auto" />
 
-{/* PREMIUM GALLERY - MINIMAL LUXURY */}
-<section className="section container-pad max-w-7xl mx-auto py-24">
-  <motion.div
-    variants={staggerContainer}
-    initial="initial"
-    whileInView="whileInView"
-    viewport={{ once: true }}
-  >
-    {/* Header */}
-    <motion.div {...fadeInUp} className="text-center mb-16">
-      <Camera
-        className="mx-auto mb-5 text-primary/90"
-        size={42}
-        weight="duotone"
-      />
+      {/* PREMIUM GALLERY - MINIMAL LUXURY */}
+      <section className="section container-pad max-w-7xl mx-auto py-24">
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="whileInView"
+          viewport={{ once: true }}
+        >
+          {/* Header */}
+          <motion.div {...fadeInUp} className="text-center mb-16">
+            <Camera
+              className="mx-auto mb-5 text-primary/90"
+              size={42}
+              weight="duotone"
+            />
 
-      <h2 className="h2 tracking-tight">
-        {t("gallery.title")}
-      </h2>
+            <h2 className="h2 tracking-tight">
+              {t("gallery.title")}
+            </h2>
 
-      <p className="mt-4 max-w-2xl mx-auto text-muted-foreground leading-relaxed">
-        {t("gallery.subtitle")}
-      </p>
-    </motion.div>
+            <p className="mt-4 max-w-2xl mx-auto text-muted-foreground leading-relaxed">
+              {t("gallery.subtitle")}
+            </p>
+          </motion.div>
 
-    {/* Layout */}
-    <motion.div
-      {...fadeInUp}
-      className="grid grid-cols-1 md:grid-cols-12 gap-5"
-    >
-      {gallery.map((img, index) => {
-        const layout =
-          index === 0
-            ? "md:col-span-7 md:row-span-2"
-            : index === 1 || index === 2
-            ? "md:col-span-5"
-            : "md:col-span-4";
-        return (
-          <Dialog
-            key={getPhotoPath(img.file)}
-            open={selectedImage === index}
-            onOpenChange={(open) =>
-              setSelectedImage(open ? index : null)
-            }
+          {/* Layout */}
+          <motion.div
+            {...fadeInUp}
+            className="grid grid-cols-1 md:grid-cols-12 gap-5"
           >
-            <DialogTrigger asChild>
-              <motion.button
-                whileHover={{ y: -6 }}
-                whileTap={{ scale: 0.99 }}
-                className={`group relative overflow-hidden rounded-[28px] bg-secondary/10 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_60px_rgba(0,0,0,0.10)] transition-all duration-700 ${layout}`}
+            {gallery.map((img, index) => {
+              const layout =
+                index === 0
+                  ? "md:col-span-7 md:row-span-2"
+                  : index === 1 || index === 2
+                    ? "md:col-span-5"
+                    : "md:col-span-4";
+              return (
+                <Dialog
+                  key={getPhotoPath(img.file)}
+                  open={selectedImage === index}
+                  onOpenChange={(open) =>
+                    setSelectedImage(open ? index : null)
+                  }
+                >
+                  <DialogTrigger asChild>
+                    <motion.button
+                      whileHover={{ y: -6 }}
+                      whileTap={{ scale: 0.99 }}
+                      className={`group relative overflow-hidden rounded-[28px] bg-secondary/10 border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_18px_60px_rgba(0,0,0,0.10)] transition-all duration-700 ${layout}`}
+                    >
+                      <div className="relative w-full h-full overflow-hidden bg-secondary/20">
+                        <img
+                          src={getPhotoPath(img.file)}
+                          alt={img.alt}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-all duration-700 ease-out opacity-0 scale-105 blur-md"
+                          onLoad={(e) => {
+                            e.currentTarget.classList.remove("opacity-0", "blur-md", "scale-105");
+                          }}
+                        />
+
+                      </div>
+
+                      {/* soft overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent opacity-70 group-hover:opacity-90 transition duration-700" />
+
+                      {/* Label */}
+                      <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
+                        <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500">
+                          <p className="text-white text-sm tracking-[0.22em] uppercase">
+                            View Image
+                          </p>
+                        </div>
+
+                        <div className="h-10 w-10 rounded-full border border-white/30 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition duration-500">
+                          +
+                        </div>
+                      </div>
+                    </motion.button>
+                  </DialogTrigger>
+
+                  {/* Lightbox */}
+                  <DialogContent className="max-w-6xl p-0 bg-transparent border-none shadow-none">
+                    <div className="overflow-hidden rounded-3xl">
+                      <img
+                        src={getPhotoPath(img.file)}
+                        alt={img.alt}
+                        className="w-full h-auto"
+                      />
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              );
+            })}
+          </motion.div>
+
+          {/* Footer note */}
+          <motion.p
+            {...fadeInUp}
+            className="mt-10 text-center text-sm text-muted-foreground tracking-wide"
+          >
+
+          </motion.p>
+        </motion.div>
+      </section>
+
+      {/* SHARED MEMORIES - WEDSHOOTS */}
+      <section className="section container-pad max-w-4xl mx-auto py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          {/* Icon */}
+          <Camera className="mx-auto mb-5 text-primary" size={42} />
+
+          {/* Title */}
+          <h2 className="h2">
+            Momenti condivisi
+          </h2>
+
+          {/* Soft, non-mandatory subtitle (IMPORTANT UX CHANGE) */}
+          <p className="mt-4 text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            Condivideremo i momenti della giornata in un album fotografico su WedShoots, per rivivere la festa da prospettive diverse.
+            <br />
+            Chi vuole potrà aggiungere i propri scatti.
+          </p>
+
+          {/* Card */}
+          <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
+            <p className="text-sm text-muted-foreground mb-3">
+              Accesso album WedShoots
+            </p>
+
+            <div className="text-xl font-mono tracking-wider">
+              IT8ffc35bd
+            </div>
+
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+              <button
+                onClick={() =>
+                  navigator.clipboard.writeText("IT8ffc35bd")
+                }
+                className="px-5 py-2 rounded-full bg-black text-white text-sm hover:opacity-80 transition"
               >
-                <img
-                  src={getPhotoPath(img.file)}
-                  alt={img.alt}
-                  loading="lazy"
-                  className="h-full w-full object-cover min-h-[260px] md:min-h-[320px] group-hover:scale-[1.04] transition duration-700 ease-out"
-                />
+                Copia codice
+              </button>
 
-                {/* soft overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-black/5 to-transparent opacity-70 group-hover:opacity-90 transition duration-700" />
+              <a
+                href="https://www.matrimonio.com/web/edir-and-maria/wedshoots-8"
+                target="_blank"
+                className="px-5 py-2 rounded-full border border-white/20 text-sm hover:bg-white/10 transition"
+              >
+                Apri WedShoots
+              </a>
+            </div>
+          </div>
 
-                {/* Label */}
-                <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
-                  <div className="translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-500">
-                    <p className="text-white text-sm tracking-[0.22em] uppercase">
-                      View Image
-                    </p>
-                  </div>
-
-                  <div className="h-10 w-10 rounded-full border border-white/30 backdrop-blur-md flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition duration-500">
-                    +
-                  </div>
-                </div>
-              </motion.button>
-            </DialogTrigger>
-
-            {/* Lightbox */}
-            <DialogContent className="max-w-6xl p-0 bg-transparent border-none shadow-none">
-              <div className="overflow-hidden rounded-3xl">
-                <img
-                  src={getPhotoPath(img.file)}
-                  alt={img.alt}
-                  className="w-full h-auto"
-                />
-              </div>
-            </DialogContent>
-          </Dialog>
-        );
-      })}
-    </motion.div>
-
-    {/* Footer note */}
-    <motion.p
-      {...fadeInUp}
-      className="mt-10 text-center text-sm text-muted-foreground tracking-wide"
-    >
-      
-    </motion.p>
-  </motion.div>
-</section>
-
-{/* SHARED MEMORIES - WEDSHOOTS */}
-<section className="section container-pad max-w-4xl mx-auto py-24">
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
-    className="text-center"
-  >
-    {/* Icon */}
-    <Camera className="mx-auto mb-5 text-primary" size={42} />
-
-    {/* Title */}
-    <h2 className="h2">
-      Momenti condivisi
-    </h2>
-
-    {/* Soft, non-mandatory subtitle (IMPORTANT UX CHANGE) */}
-    <p className="mt-4 text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-      Condivideremo i momenti della giornata in un album fotografico su WedShoots, per rivivere la festa da prospettive diverse.
-      <br />
-        Chi vuole potrà aggiungere i propri scatti.
-    </p>
-
-    {/* Card */}
-    <div className="mt-10 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-[0_20px_60px_rgba(0,0,0,0.12)]">
-      <p className="text-sm text-muted-foreground mb-3">
-        Accesso album WedShoots
-      </p>
-
-      <div className="text-xl font-mono tracking-wider">
-        IT8ffc35bd
-      </div>
-
-      <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-        <button
-          onClick={() =>
-            navigator.clipboard.writeText("IT8ffc35bd")
-          }
-          className="px-5 py-2 rounded-full bg-black text-white text-sm hover:opacity-80 transition"
-        >
-          Copia codice
-        </button>
-
-        <a
-          href="https://www.matrimonio.com/web/edir-and-maria/wedshoots-8"
-          target="_blank"
-          className="px-5 py-2 rounded-full border border-white/20 text-sm hover:bg-white/10 transition"
-        >
-          Apri WedShoots
-        </a>
-      </div>
-    </div>
-
-    {/* Soft reassurance (key UX improvement) */}
-    <p className="mt-8 text-xs text-muted-foreground">
-      "Se ti va di catturare un momento, lo accoglieremo con gioia." ❤️
-    </p>
-  </motion.div>
-</section>
+          {/* Soft reassurance (key UX improvement) */}
+          <p className="mt-8 text-xs text-muted-foreground">
+            "Se ti va di catturare un momento, lo accoglieremo con gioia." ❤️
+          </p>
+        </motion.div>
+      </section>
 
       {/* FOOTER */}
       <footer className="py-12 container-pad text-center bg-secondary/30">

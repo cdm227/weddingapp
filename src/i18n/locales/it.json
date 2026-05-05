@@ -1,6 +1,6 @@
 {
   "hero": {
-    "subtitle": "25 settembre 2026 • Noto, Sicilia",
+    "subtitle": "25 settembre 2026 • Agua Beach Resort",
     "countdown": "Prossimamente",
     "rsvp_button": "RSVP",
     "details_button": "Dettagli"
@@ -10,7 +10,7 @@
     "subtitle": "Unisciti a noi per una giornata d'amore e celebrazione",
     "event": {
       "title": "Cerimonia e Ricevimento",
-      "location": "Agua Resort",
+      "location": "Agua Beach Resort",
       "city": "Noto, Sicilia",
       "time": "Ore 18:00"
     }
@@ -18,13 +18,23 @@
   "schedule": {
     "title": "Timeline",
     "subtitle": "Programma della giornata",
-    "ceremony_begins": "Inizio cerimonia",
-    "cocktail_hour": "Cocktail",
-    "reception_starts": "Inizio ricevimento",
+
+    "ceremony_begins": "Cerimonia",
+    "ceremony_begins_time": "17:00",
+
+    "cocktail_hour": "Aperitivo",
+    "cocktail_hour_time": "19:30",
+
     "dinner_service": "Cena",
-    "dancing": "Balli e celebrazione",
-    "sendoff": "Saluti finali"
+    "dinner_service_time": "20:30",
+
+    "dancing": "Il Primo Taglio",
+    "dancing_time": "23:30",
+
+    "sendoff": "Luce di luna(Baci e Abbracci)",
+    "sendoff_time": "00:30"
   },
+
   "location": {
     "title": "Luogo",
     "subtitle": "Raggiungi il nostro evento",
@@ -72,7 +82,7 @@
   },
   "gallery": {
     "title": "Momenti senza tempo",
-    "subtitle": "Uno sguardo ai ricordi, alle emozioni e al nostro viaggio insieme."
+    "subtitle": "Abbiamo scelto il matrimonio civile per rendere ufficiale la nostra unione e per realizzare il nostro sogno: scambiarci le promesse in riva al mare. Venite al nostro giorno all'Agua Beach, dove inizia la nostra unione!"
     
   },
   "footer": {
